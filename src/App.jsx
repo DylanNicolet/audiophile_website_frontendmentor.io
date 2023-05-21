@@ -2,14 +2,39 @@ import React from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import "./sass/App.css"
 import { Outlet } from "react-router-dom"
+import { updateState } from "./redux/appSlice"
 import Header from "./layout/Header"
+import Shade from "./components/Shade"
 
 export default function App(){
     //States
-    //const homepageActive = useSelector(state => state.appState.homepageActive)
+    const currentScreenWidth = useSelector(state => state.appState.screenWidth)
+
+    //update Redux
+    const dispatch = useDispatch()
+    function updateScreenWidth(width){
+        dispatch(updateState(
+            {
+                screenWidth: width,
+            }
+        ))
+    }
+
+    React.useEffect(() => {
+        const handleWindowResize = () => {
+          updateScreenWidth(window.innerWidth)
+        }
+    
+        window.addEventListener('resize', handleWindowResize)
+    
+        return () => {
+          window.removeEventListener('resize', handleWindowResize)
+        }
+    }, [])
 
     return(
         <section className="app">
+            <Shade />
             <Header />
             <Outlet />
         </section>

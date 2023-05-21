@@ -1,9 +1,55 @@
-import React from "react";
+import React from "react"
+import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
+import $ from 'jquery'
+import hamburgerIcon from "../assets/shared/tablet/icon-hamburger.svg"
+import brandLogo from "../assets/shared/desktop/logo.svg"
+import cartIcon from "../assets/shared/desktop/icon-cart.svg"
+import CategoryNav from "../components/CategoryNav"
+
 
 export default function Header(){
+    const screenWidth = useSelector(state => state.appState.screenWidth)
+
+    //Open or close mobile menu on hamburger click
+    function toggleMenu(){
+        $(".mobile-nav").slideToggle(700);
+
+        setTimeout(() => {
+            $(".shade").fadeToggle(700);
+        }, 200)
+    }
+
     return(
         <header>
-            header
+            {screenWidth <= 768 && 
+                <button className="hamburger" onClick={toggleMenu}>
+                    <img src={hamburgerIcon} alt="Open or close menu"/>
+                </button>
+            }
+
+            <Link to={`/`} className="brand-logo">
+                <img src={brandLogo} alt="Brand logo, redirects to homepage"/>
+            </Link>
+
+            {screenWidth > 768 && 
+                <nav className="desktop-nav">
+                    <ul>
+                        <li><Link to={`/`}>HOME</Link></li>
+                        <li><Link to={`headphones`}>HEADPHONES</Link></li>
+                        <li><Link to={`speakers`}>SPEAKERS</Link></li>
+                        <li><Link to={`earphones`}>EARPHONES</Link></li>
+                    </ul>
+                </nav>
+            }
+
+            <button className="cart">
+                <img src={cartIcon} alt="Open or close my cart" />
+            </button>
+
+            <section className="mobile-nav" style={{"display" : "none"}}>
+                <CategoryNav />
+            </section>
         </header>
     )
 }

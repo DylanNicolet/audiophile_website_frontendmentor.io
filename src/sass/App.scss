@@ -3,8 +3,10 @@
 @use "./base/keyframes";
 
 @use "./components/buttons";
+@use "./components/CategoryNav";
+@use "./components/Shade";
 
-//@use "./layouts/header";
+@use "./layouts/header";
 
 @use "./pages/startGame";
 @use "./pages/game";

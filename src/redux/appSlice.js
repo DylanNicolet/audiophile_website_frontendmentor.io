@@ -3,10 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const appSlice = createSlice({
   name: 'appState',
   initialState: {
-    homepageActive: false,
-    theme: "numbers",
-    playerNumber: "1",
-    gridSize: "4x4",
+    screenWidth: window.innerWidth,
   },
   reducers: {
     /*increment: state => {
@@ -20,10 +17,7 @@ export const appSlice = createSlice({
       state.value -= 1
     },*/
     updateState: (state, action) => {
-      state.homepageActive = action.payload.homepageActive
-      state.theme = action.payload.theme
-      state.playerNumber = action.payload.playerNumber
-      state.gridSize = action.payload.gridSize
+      state.screenWidth = action.payload.screenWidth
     },
   }
 })
