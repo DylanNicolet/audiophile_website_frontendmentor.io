@@ -1,1 +1,31 @@
 @use "../utils" as u;
+
+.button--light{
+    background-color: u.$color-primary;
+    color: u.$color-text-secondary;
+    width: 170px;
+    height: 55px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.15rem;
+
+    &:hover{
+        color: u.$color-primary-light;
+    }
+}
+
+.button--dark{
+    background-color: u.$color-secondary;
+    color: u.$color-text-secondary;
+    width: 170px;
+    height: 55px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.15rem;
+
+    &:hover{
+        color: u.$color-primary-light;
+    }
+}

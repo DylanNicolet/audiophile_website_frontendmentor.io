@@ -48,7 +48,7 @@ export default function Header(){
             </button>
 
             <section className="mobile-nav" style={{"display" : "none"}}>
-                <CategoryNav />
+                <CategoryNav header={true} />
             </section>
         </header>
     )

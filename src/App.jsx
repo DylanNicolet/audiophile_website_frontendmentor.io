@@ -8,7 +8,7 @@ import Shade from "./components/Shade"
 
 export default function App(){
     //States
-    const currentScreenWidth = useSelector(state => state.appState.screenWidth)
+    const screenWidth = useSelector(state => state.appState.screenWidth)
 
     //update Redux
     const dispatch = useDispatch()
