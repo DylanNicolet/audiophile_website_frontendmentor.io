@@ -37,11 +37,12 @@
         }
 
         @include u.desktop-only{
-            width: 49%;
+            width: 37%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             text-align: left;
+            padding: 0;
         }
 
         .content__title{

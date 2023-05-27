@@ -11,7 +11,7 @@ export default function Footer(){
         <footer>
 
             <section className="deco-container">
-                <span className="deco"></span>
+                <section className="deco"></section>
             </section>
 
             <section className="footer__top">

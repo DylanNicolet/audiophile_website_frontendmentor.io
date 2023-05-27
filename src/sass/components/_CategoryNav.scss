@@ -7,6 +7,10 @@
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 
+    @include u.desktop-only{
+        width: 80%;
+    }
+
     //When category-nav is in the mobile/tablet menu
     &.header-nav{
         max-height: calc(100vh - 90px);
