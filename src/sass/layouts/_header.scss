@@ -72,7 +72,6 @@ header{
 
         @include u.desktop-only{
             margin-left: 0;
-            width: 170px;
             text-align: right;
         }
 
@@ -84,25 +83,21 @@ header{
         }
     }
 
-    .desktop-nav{
-
-        ul{
-            display: flex;
-            list-style-type: none;
-            
-            a{
-                text-decoration: none;
-                color: u.$color-tertiary;
-                margin: 0 15px;
-            }
-        }
-    }
-
     .mobile-nav{
         position: absolute;
         left: 0;
         top: 90px;
         width: 100%;
         z-index: 2;
+    }
+
+    .deployed-nav{
+        ul{
+            display: flex;
+
+            li{
+                margin-right: 30px;
+            }
+        }
     }
 }

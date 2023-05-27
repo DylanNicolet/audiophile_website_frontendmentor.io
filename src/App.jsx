@@ -5,6 +5,8 @@ import { Outlet } from "react-router-dom"
 import { updateState } from "./redux/appSlice"
 import Header from "./layout/Header"
 import Shade from "./components/Shade"
+import About from "./components/about"
+import Footer from "./layout/Footer"
 
 export default function App(){
     //States
@@ -37,6 +39,8 @@ export default function App(){
             <Shade />
             <Header />
             <Outlet />
+            <About />
+            <Footer />
         </section>
     )
 }

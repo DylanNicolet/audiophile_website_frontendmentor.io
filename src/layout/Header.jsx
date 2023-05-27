@@ -6,6 +6,7 @@ import hamburgerIcon from "../assets/shared/tablet/icon-hamburger.svg"
 import brandLogo from "../assets/shared/desktop/logo.svg"
 import cartIcon from "../assets/shared/desktop/icon-cart.svg"
 import CategoryNav from "../components/CategoryNav"
+import DeployedNav from "../components/DeployedNav"
 
 
 export default function Header(){
@@ -32,16 +33,7 @@ export default function Header(){
                 <img src={brandLogo} alt="Brand logo, redirects to homepage"/>
             </Link>
 
-            {screenWidth > 768 && 
-                <nav className="desktop-nav">
-                    <ul>
-                        <li><Link to={`/`}>HOME</Link></li>
-                        <li><Link to={`headphones`}>HEADPHONES</Link></li>
-                        <li><Link to={`speakers`}>SPEAKERS</Link></li>
-                        <li><Link to={`earphones`}>EARPHONES</Link></li>
-                    </ul>
-                </nav>
-            }
+            {screenWidth > 768 && <DeployedNav /> }
 
             <button className="cart">
                 <img src={cartIcon} alt="Open or close my cart" />

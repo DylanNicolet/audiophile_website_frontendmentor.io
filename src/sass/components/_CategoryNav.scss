@@ -2,25 +2,32 @@
 
 .category-nav{
     background-color: u.$color-tertiary;
-    width: 100%;
+    width: 90%;
+    margin: auto;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 
+    //When category-nav is in the mobile/tablet menu
     &.header-nav{
         max-height: calc(100vh - 90px);
         overflow-y: scroll;
+        width: 100%;
+        padding: 0 5%;
+
+        @include u.tablet-only{
+            padding: 0 5% 30px 5%;
+        }
     }
 
     ul{
         list-style-type: none;
-        padding: 20px 5% 35px 5%;
-        margin: 0;
+        width: 100%;
+        padding: 0;
 
         @include u.tablet-only{
             display: grid;
             grid-template: repeat(1, 1fr)/repeat(3, 1fr);
             gap: 15px;
-            padding: 20px 5% 55px 5%;
         }
 
         .nav_item{

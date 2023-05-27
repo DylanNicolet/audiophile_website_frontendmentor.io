@@ -5,20 +5,41 @@ import heroTabletBg from "../assets/home/tablet/image-header.jpg"
 import heroDesktopBg from "../assets/home/desktop/image-hero.jpg"
 import { useSelector } from "react-redux"
 import CategoryNav from "../components/CategoryNav"
-import module1Image from "../assets/home/mobile/image-speaker-zx9.png"
 import circlePattern from "../assets/home/desktop/pattern-circles.svg"
+import module1MobileBg from "../assets/home/mobile/image-speaker-zx9.png"
+import module2MobileBg from "../assets/home/mobile/image-speaker-zx7.jpg"
+import module3MobileBg from "../assets/home/mobile/image-earphones-yx1.jpg"
+import module1TabletBg from "../assets/home/tablet/image-speaker-zx9.png"
+import module2TabletBg from "../assets/home/tablet/image-speaker-zx7.jpg"
+import module3TabletBg from "../assets/home/tablet/image-earphones-yx1.jpg"
+import module1DesktopBg from "../assets/home/desktop/image-speaker-zx9.png"
+import module2DesktopBg from "../assets/home/desktop/image-speaker-zx7.jpg"
+import module3DesktopBg from "../assets/home/desktop/image-earphones-yx1.jpg"
 
 export default function Homepage(){
     const screenWidth = useSelector(state => state.appState.screenWidth)
     let heroBg = undefined
+    let module1Bg = undefined
+    let module2Bg = undefined
+    let module3Bg = undefined
 
     if(screenWidth < 768){
         heroBg = heroMobileBg
+        module1Bg = module1MobileBg
+        module2Bg = module2MobileBg
+        module3Bg = module3MobileBg
     }
     else if(screenWidth >= 768 && screenWidth < 920){
         heroBg = heroTabletBg
-    } else if(screenWidth >= 920){
+        module1Bg = module1TabletBg
+        module2Bg = module2TabletBg
+        module3Bg = module3TabletBg
+    }
+    else if(screenWidth >= 920){
         heroBg = heroDesktopBg
+        module1Bg = module1DesktopBg
+        module2Bg = module2DesktopBg
+        module3Bg = module3DesktopBg
     }
 
     return(
@@ -43,7 +64,7 @@ export default function Homepage(){
                     backgroundSize : "cover"
                 }}
             >
-                <img src={module1Image} alt="" className="module__image"/>
+                <img src={module1Bg} alt="ZX9 speakers" className="module__image"/>
 
                 <section className="content">
                     <h1 className="content__title">ZX9 <br /> SPEAKER</h1>
@@ -54,6 +75,45 @@ export default function Homepage(){
                         <button className="button--dark">SEE PRODUCT</button>
                     </Link>
                 </section>
+            </section>
+
+            <section
+                className="homepage__module--2"
+                style={{
+                    backgroundImage : "url("+module2Bg+")",
+                    backgroundPosition : "center",
+                    backgroundRepeat : "no-repeat",
+                    backgroundSize : "cover"
+                }}
+            >
+
+                <section className="content">
+                    <h1 className="content__title">ZX7 SPEAKER</h1>
+                    <Link>
+                        <button className="button--transparent">SEE PRODUCT</button>
+                    </Link>
+                </section>
+            </section>
+
+            <section className="homepage__module--3">
+
+                <section className="image"
+                    style={{
+                        backgroundImage : "url("+module3Bg+")",
+                        backgroundPosition : "center",
+                        backgroundRepeat : "no-repeat",
+                        backgroundSize : "cover"
+                    }}
+                >
+                </section>
+
+                <section className="content">
+                    <h1 className="content__title">YX1 EARPHONES</h1>
+                    <Link>
+                        <button className="button--transparent">SEE PRODUCT</button>
+                    </Link>
+                </section>
+
             </section>
         </section>
     )

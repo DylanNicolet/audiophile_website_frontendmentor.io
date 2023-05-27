@@ -11,7 +11,7 @@
     letter-spacing: 0.15rem;
 
     &:hover{
-        color: u.$color-primary-light;
+        background-color: u.$color-primary-light;
     }
 }
 
@@ -26,6 +26,22 @@
     letter-spacing: 0.15rem;
 
     &:hover{
-        color: u.$color-primary-light;
+        background-color: u.$color-secondary-light;
+    }
+}
+
+.button--transparent{
+    background-color: transparent;
+    color: u.$color-secondary;
+    width: 170px;
+    height: 55px;
+    border: 2px solid u.$color-secondary;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.15rem;
+
+    &:hover{
+        color: u.$color-tertiary;
+        background-color: u.$color-secondary;
     }
 }
