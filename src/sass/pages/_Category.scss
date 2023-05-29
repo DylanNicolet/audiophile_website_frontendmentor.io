@@ -1,1 +1,59 @@
 @use "../utils" as u;
+
+.category{
+
+    .category__top{
+        background-color: u.$color-secondary;
+        height: 90px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .title{
+            color: u.$color-text-secondary;
+            font-size: 1.8rem;
+            font-weight: 500;
+        }
+    }
+
+    .products-block{
+        margin-bottom: 200px;
+    }
+
+    .product{
+        width: 90%;
+        margin: 60px auto;
+
+        .product__image{
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .product__info{
+            text-align: center;
+
+            .product__new{
+                color: u.$color-primary;
+                font-weight: 400;
+                font-size: 1rem;
+                letter-spacing: 0.7rem;
+                margin-bottom: 25px;
+            }
+
+            .product__title{
+                font-size: 2.1rem;
+                margin-bottom: 30px;
+            }
+
+            .product__description{
+                color: u.$color-text-primary;
+                font-size: 1.1rem;
+                font-weight: 500;
+                line-height: 1.8rem;
+                margin-bottom: 30px;
+            }
+
+        }
+    }
+}

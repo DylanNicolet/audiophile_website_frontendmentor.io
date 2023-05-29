@@ -2,6 +2,8 @@ import React from "react"
 import { useParams } from "react-router-dom"
 import data from "../../data.json"
 import { useSelector } from "react-redux"
+import { Link } from "react-router-dom"
+import CategoryNav from "../components/CategoryNav"
 
 export default function Category(){
 
@@ -14,7 +16,7 @@ export default function Category(){
 
     console.log(category)
 
-    let product = filteredData.map((product, index) => {
+    let products = filteredData.map((product, index) => {
 
         let device = "mobile"
         if(screenWidth >= 768 && screenWidth < 920){
@@ -26,8 +28,17 @@ export default function Category(){
 
         return(
             <section className="product" key={index}>
-                <img src={product.categoryImage.mobile} alt="img" />
-                <h2>{product.name}</h2>
+                <img src={product.categoryImage.mobile} alt="img" className="product__image" />
+                ADD EXCEPTION TO KNOW DEVICE AND LOAD PROPER IMAGES
+                
+                <section className="product__info">
+                    {product.new &&  <p className="product__new">NEW PRODUCT</p>}
+                    <h2 className="product__title">{product.name}</h2>
+                    <p className="product__description">{product.description}</p>
+                    <Link to={`#`}>
+                        <button className="button--light">SEE PRODUCT</button>
+                    </Link>
+                </section>
             </section>
         )
     })
@@ -37,9 +48,12 @@ export default function Category(){
             <section className="category__top">
                 <h1 className="title">{category}</h1>
             </section>
- 
-            {product}
 
+            <section className="products-block">
+                {products}
+            </section>
+
+            <CategoryNav />
         </section>
     )
 }
