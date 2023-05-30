@@ -1,0 +1,49 @@
+@use "../utils" as u;
+
+.product-page{
+    padding-top: 20px;
+    width: 90%;
+    margin: auto;
+
+    .go-back{
+        color: u.$color-text-primary;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+    .general-info{
+        margin-top: 20px;
+
+        .product__image{
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .product__new{
+            color: u.$color-primary;
+            font-weight: 400;
+            font-size: 1rem;
+            letter-spacing: 0.7rem;
+            margin-bottom: 25px;
+
+            @include u.tablet-only{
+                margin-bottom: 10px;
+            }
+        }
+
+        .product__title{
+            font-size: 2.1rem;
+            margin-bottom: 30px;
+        }
+
+        .product__description{
+            color: u.$color-text-primary;
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.8rem;
+            margin-bottom: 30px;
+        }
+    }
+}

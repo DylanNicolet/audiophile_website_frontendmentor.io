@@ -6,6 +6,7 @@ import { Provider } from "react-redux"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Homepage from "./pages/Homepage"
 import Category from "./pages/Category"
+import ProductPage from "./pages/ProductPage"
 
 const router = createBrowserRouter([
   {
@@ -17,8 +18,12 @@ const router = createBrowserRouter([
         element: <Homepage />,
       },
       {
-        path: "category/:category",
+        path: "/:category",
         element: <Category />
+      },
+      {
+        path: "/:category/:productSlug",
+        element: <ProductPage />
       }
     ],
   }

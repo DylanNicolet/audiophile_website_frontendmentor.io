@@ -32,7 +32,11 @@ export default function App(){
         return () => {
           window.removeEventListener('resize', handleWindowResize)
         }
-    }, [])
+    }, [] )
+    
+    React.useEffect(() => {
+        localStorage.setItem('cartData', JSON.stringify([]));
+    }, []);
 
     return(
         <section className="app">

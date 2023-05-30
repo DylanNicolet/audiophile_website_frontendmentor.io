@@ -7,35 +7,38 @@ import CategoryNav from "../components/CategoryNav"
 
 export default function Category(){
 
-    //Get screenwidth
+    //Get screenwidth from REDUX
     const screenWidth = useSelector(state => state.appState.screenWidth)
     
-
+    //Detect which category we are on, using the URL parameter (category)
     let { category } = useParams()
-    let filteredData = data.filter((product)=>{if(product.category == category){return product}});
 
-    console.log(category)
+    //Filter all received data, for this category only
+    let filteredData = data.filter( ( product ) => { if ( product.category == category ) { return product } } )
+    
+    //Sort the data with NEW products placed first
+    filteredData.sort((a, b) => Number(b.new) - Number(a.new))
 
+    //Map over data to generate product blocks
     let products = filteredData.map((product, index) => {
 
-        let device = "mobile"
+        let source = product.categoryImage.mobile
         if(screenWidth >= 768 && screenWidth < 920){
-            device = "tablet"
+            source = product.categoryImage.tablet
         }
         else if(screenWidth >= 920){
-            device = "desktop"
+            source = product.categoryImage.desktop
         }
 
         return(
             <section className="product" key={index}>
-                <img src={product.categoryImage.mobile} alt="img" className="product__image" />
-                ADD EXCEPTION TO KNOW DEVICE AND LOAD PROPER IMAGES
+                <img src={source} alt="img" className="product__image" />
                 
                 <section className="product__info">
                     {product.new &&  <p className="product__new">NEW PRODUCT</p>}
                     <h2 className="product__title">{product.name}</h2>
                     <p className="product__description">{product.description}</p>
-                    <Link to={`#`}>
+                    <Link to={product.slug}>
                         <button className="button--light">SEE PRODUCT</button>
                     </Link>
                 </section>
