@@ -2,6 +2,8 @@ import React from "react"
 import { useSelector } from "react-redux"
 import { useParams, Link } from "react-router-dom"
 import data from "../../data.json"
+import parse from 'html-react-parser'
+import CategoryNav from "../components/CategoryNav"
 
 export default function ProductPage() {
     //Detect which category we are on, using the URL parameter (category)
@@ -13,7 +15,6 @@ export default function ProductPage() {
     //States
     let [ counterNumber, setCounterNumber ] = React.useState( 1 )
     let [ price, setPrice ] = React.useState( product.price )
-    let [cartData, setCartData] = React.useState([])
 
     //Get screenwidth from REDUX
     const screenWidth = useSelector(state => state.appState.screenWidth)
@@ -37,30 +38,83 @@ export default function ProductPage() {
         setCounterNumber( ( prev ) => ( prev - 1 ) )
         setPrice(( prev ) => ( prev - product.price ))
     }
-
-    //Retrieve cart on initial render
-    React.useEffect(() => {
-        const cartData = JSON.parse(localStorage.getItem('cartData'));
-        if (cartData) {
-            setCartData(cartData);
-        }
-    }, [] )
     
+    //Cart logic with localStorage
     function addToCart() {
-        let productData = {
+        let cartData = JSON.parse( localStorage.getItem( "cartData" ) || "[]" )
+
+        let newCartData = {
             id: product.id,
             amount: counterNumber,
-            price: price
+            totalPrice: price
         }
 
-        setCartData((prev) => (prev.push(productData)))
-
-        //localStorage.setItem('cartData', JSON.stringify(newCartData))
+        //Check if this product already exists in localStorage
+        const index = cartData.findIndex( ( el ) => el.id === product.id )
+        
+        //-1 means product is not already in localStorage
+        if ( index === -1 ) { 
+            cartData.push( newCartData )
+        }
+        //Replace existing data with new data
+        else {
+            cartData[ index ] = newCartData
+        }
+        
+        localStorage.setItem("cartData", JSON.stringify(cartData))
     }
 
-    React.useEffect( () => {
-        console.log(cartData)
-    }, [cartData])
+    //Map over product.includes to generate inTheBox block
+    let inTheBox = product.includes.map((item, index) => {
+        return(
+            <li key={index}>
+                <p className="amount">{item.quantity + "x"}</p>
+                <p className="item">{ item.item }</p>
+            </li>
+        )
+    })
+
+    //Get images according to device
+    let firstImage = product.gallery.first.mobile
+    let secondImage = product.gallery.second.mobile
+    let thirdImage = product.gallery.third.mobile
+
+    if(screenWidth >= 768 && screenWidth < 920){
+        firstImage = product.gallery.first.tablet
+        secondImage = product.gallery.second.tablet
+        thirdImage = product.gallery.third.tablet
+    }
+    else if(screenWidth >= 920){
+        firstImage = product.gallery.first.desktop
+        secondImage = product.gallery.second.desktop
+        thirdImage = product.gallery.third.desktop
+    }
+    
+    //Map over product.others to generate related-product block
+    let relatedProducts = product.others.map( ( relatedProduct, index ) => {
+
+        //Find the category of the related product from data
+        let productCategory = data.find( ( { slug } ) => slug === relatedProduct.slug ).category
+
+        //Define image source according to screen size
+        let source = relatedProduct.image.mobile
+        if(screenWidth >= 768 && screenWidth < 920){
+            source = relatedProduct.image.tablet
+        }
+        else if(screenWidth >= 920){
+            source = relatedProduct.image.desktop
+        }
+
+        return(
+            <section className="product" key={index}>
+                <img src={source} alt={relatedProduct.name} className="product__image" />
+                <h4 className="product__title">{relatedProduct.name}</h4>
+                <Link to={"/" + productCategory + "/" + relatedProduct.slug} relative="path">
+                    <button className="button--light">SEE PRODUCT</button>
+                </Link>
+            </section>
+        )
+    })
     
     return (
         <section className="product-page">
@@ -77,15 +131,42 @@ export default function ProductPage() {
                     
                     <section className="counter-container">
                         <section className="counter">
-                            <button className="counter__decrease" onClick={decrementCounter}>-</button>
+                            <button className="counter__button" onClick={decrementCounter}>-</button>
                             <p className="counter__number">{counterNumber}</p>
-                            <button className="counter__increase" onClick={increaseCounter}>+</button>
+                            <button className="counter__button" onClick={increaseCounter}>+</button>
                         </section>
                         
-                        <button className="add-cart" onClick={addToCart}>ADD TO CART</button>
+                        <button className="button--light" onClick={addToCart}>ADD TO CART</button>
                     </section>
                 </section>
             </section>
+
+            <section className="additional-info">
+                <section className="features">
+                    <h3 className="features__title">FEATURES</h3>
+                    <p className="features__description">{ parse(product.features) }</p>
+                </section>
+
+                <section className="in-the-box">
+                    <h3 className="title">IN THE BOX</h3>
+                    <ul>
+                        {inTheBox}
+                    </ul>
+                </section>
+            </section>
+
+            <section className="gallery">
+                <img src={firstImage} alt="Product image 1" className="image1" />
+                <img src={secondImage} alt="Product image 2"  className="image2" />
+                <img src={thirdImage} alt="Product image 3" className="image3" />
+            </section>
+
+            <section className="related-products">
+                <h3 className="related-products__title">YOU MAY ALSO LIKE</h3>
+                { relatedProducts }
+            </section>
+
+            <CategoryNav />
         </section>
     )
 }

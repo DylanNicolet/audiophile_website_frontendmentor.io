@@ -21,6 +21,10 @@ export default function Header(){
         }, 200)
     }
 
+    function toggleCart() {
+        $( ".cart-modal" ).fadeToggle( 700 );
+    }
+
     return(
         <header>
             {screenWidth <= 768 && 
@@ -35,7 +39,7 @@ export default function Header(){
 
             {screenWidth > 768 && <DeployedNav /> }
 
-            <button className="cart">
+            <button className="cart" onClick={toggleCart}>
                 <img src={cartIcon} alt="Open or close my cart" />
             </button>
 
