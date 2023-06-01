@@ -2,13 +2,43 @@ import React from "react"
 import { useSelector } from "react-redux"
 
 export default function Cart() {
-
+    //States
+    let [ totalCart, setTotalCart ] = React.useState( 0 )
+    let [ cartData, setCartData ] = React.useState( JSON.parse( localStorage.getItem( "cartData" ) || "[]" ) )
     
     //Get screenwidth from REDUX
-    const screenWidth = useSelector(state => state.appState.screenWidth)
+    const screenWidth = useSelector( state => state.appState.screenWidth )
 
-    let cartData = JSON.parse( localStorage.getItem( "cartData" ) || "[]" )
-    console.log( cartData )
+    //Determine total cart amount
+    React.useEffect( () => {
+        setTotalCart(0)
+        cartData.map( ( product ) => {
+            setTotalCart( ( prev ) => ( prev + (product.price * product.amount) ) )
+        } )
+    }, [cartData] )
+
+    //Update localStorage automatically when cartData changes
+    React.useEffect(() => {
+        localStorage.setItem("cartData", JSON.stringify(cartData))
+    }, [cartData] )
+    
+    function decrementCounter( index ) {
+        if ( cartData[ index ].amount > 0 ) {
+            let newCart = cartData.slice()
+            newCart[ index ].amount = newCart[ index ].amount - 1
+            setCartData(newCart)
+        }
+    }
+
+    function increaseCounter( index ) {
+        let newCart = cartData.slice()
+        newCart[ index ].amount = newCart[ index ].amount + 1
+        setCartData(newCart)
+    }
+
+    function resetCart() {
+        setCartData([])
+    }
         
     let products = cartData.map( ( product, index ) => {
 
@@ -21,44 +51,47 @@ export default function Cart() {
             source = "/assets/product-" + product.slug + "/desktop/image-product.jpg"
         }
 
+        //Remove last word of product's name to match Figma model
+        let lastIndex = product.name.lastIndexOf(" ");
+        let productName = product.name.substring(0, lastIndex);
+
         return (
             <section className="product" key={index}>
 
                 <img src={source} alt="image" className="product__image"/>
 
                 <section className="title-and-price">
-                    <h3 className="title">{ product.name }</h3>
-                    <p className="price">{"$ " + product.totalPrice.toLocaleString()}</p>
+                    <h3 className="title">{ productName }</h3>
+                    <p className="price">{"$ " + (product.price * product.amount).toLocaleString()}</p>
                 </section>
 
                 <section className="counter">
-                        <button className="counter__button" onClick={decrementCounter}>-</button>
+                        <button className="counter__button" onClick={e => decrementCounter(index)}>-</button>
                         <p className="counter__number">{product.amount}</p>
-                        <button className="counter__button" onClick={increaseCounter}>+</button>
+                        <button className="counter__button" onClick={e => increaseCounter(index)}>+</button>
                 </section>
                 
             </section>
         )
     } )
-    
-    function decrementCounter() {
-        
-    }
-
-    function increaseCounter() {
-        
-    }
 
     return (
-        <section className="modal-cart" style={{ "display": "block" }}>
+        <section className="modal-cart">
             <section className="header">
-                <h2 className="title">CART (3)</h2>
-                <button className="button-remove-all">Remove all</button>
+                <h2 className="title">CART ({cartData.length})</h2>
+                <button className="button-remove-all" onClick={resetCart}>Remove all</button>
             </section>
 
             <section className="products-block">
                 {products}
             </section>
+
+            <section className="total-container">
+                <p className="total">TOTAL</p>
+                <p className="total-amount">$ {totalCart}</p>
+            </section>
+
+            <button id="button-checkout" className="button--light">CHECKOUT</button>
         </section>
     )
 }

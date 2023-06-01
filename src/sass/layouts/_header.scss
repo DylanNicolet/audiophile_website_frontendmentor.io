@@ -73,6 +73,7 @@ header{
         @include u.desktop-only{
             margin-left: 0;
             text-align: right;
+            cursor: pointer;
         }
 
         img{

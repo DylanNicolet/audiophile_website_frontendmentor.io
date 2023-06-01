@@ -7,22 +7,23 @@ import brandLogo from "../assets/shared/desktop/logo.svg"
 import cartIcon from "../assets/shared/desktop/icon-cart.svg"
 import CategoryNav from "../components/CategoryNav"
 import DeployedNav from "../components/DeployedNav"
+import Cart from "../components/Cart"
 
 
 export default function Header(){
-    const screenWidth = useSelector(state => state.appState.screenWidth)
+    const screenWidth = useSelector( state => state.appState.screenWidth )
+    
+    let [CartIsOpen, setCartIsOpen] = React.useState(false) 
 
     //Open or close mobile menu on hamburger click
     function toggleMenu(){
         $(".mobile-nav").slideToggle(700);
-
-        setTimeout(() => {
-            $(".shade").fadeToggle(700);
-        }, 200)
+        $(".shade").fadeToggle(700);
     }
 
     function toggleCart() {
-        $( ".cart-modal" ).fadeToggle( 700 );
+        setCartIsOpen( ( prev ) => ( !prev ) )
+        $(".shade").fadeToggle(300);
     }
 
     return(
@@ -46,6 +47,8 @@ export default function Header(){
             <section className="mobile-nav" style={{"display" : "none"}}>
                 <CategoryNav header={true} />
             </section>
+
+            {CartIsOpen && <Cart />}
         </header>
     )
 }

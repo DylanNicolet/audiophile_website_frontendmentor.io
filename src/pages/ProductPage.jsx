@@ -10,11 +10,16 @@ export default function ProductPage() {
     let { productSlug } = useParams()
 
     //Filter all received data, for this product only
-    let product = data.filter( ( product ) => { if ( product.slug == productSlug ) { return product } } )[ 0 ]
+    const { pathname } = useLocation();  
     
     //States
     let [ counterNumber, setCounterNumber ] = React.useState( 1 )
     let [ price, setPrice ] = React.useState( product.price )
+    let [ product, setProduct ] = React.useState( data.filter( ( product ) => { if ( product.slug == productSlug ) { return product } } )[ 0 ] )
+
+    React.useEffect(() => {
+        setProduct( data.filter( ( product ) => { if ( product.slug == productSlug ) { return product } } )[ 0 ] )
+    }, [pathname]); //TEST THIS TOMORROW
 
     //Get screenwidth from REDUX
     const screenWidth = useSelector(state => state.appState.screenWidth)
@@ -46,7 +51,7 @@ export default function ProductPage() {
         let newCartData = {
             id: product.id,
             amount: counterNumber,
-            totalPrice: price,
+            price: product.price,
             name: product.name,
             slug: product.slug
         }

@@ -10,6 +10,10 @@ export default function Shade(){
             $(".mobile-nav").slideToggle(700);
         }
 
+        if ($('.modal-cart').css('display') == 'block'){
+            $(".modal-cart").fadeToggle(700);
+        }
+
         setTimeout(() => {
             $(".shade").fadeToggle(700);
         }, 200)
