@@ -46,7 +46,9 @@ export default function ProductPage() {
         let newCartData = {
             id: product.id,
             amount: counterNumber,
-            totalPrice: price
+            totalPrice: price,
+            name: product.name,
+            slug: product.slug
         }
 
         //Check if this product already exists in localStorage
