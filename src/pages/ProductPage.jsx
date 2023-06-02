@@ -4,9 +4,10 @@ import { useParams, Link } from "react-router-dom"
 import data from "../../data.json"
 import parse from 'html-react-parser'
 import CategoryNav from "../components/CategoryNav"
+import { useLocation } from "react-router-dom"
 
 export default function ProductPage() {
-    //Detect which category we are on, using the URL parameter (category)
+    //Grab URL
     let { productSlug } = useParams()
 
     //Filter all received data, for this product only
@@ -14,12 +15,17 @@ export default function ProductPage() {
     
     //States
     let [ counterNumber, setCounterNumber ] = React.useState( 1 )
-    let [ price, setPrice ] = React.useState( product.price )
     let [ product, setProduct ] = React.useState( data.filter( ( product ) => { if ( product.slug == productSlug ) { return product } } )[ 0 ] )
+    let [ price, setPrice ] = React.useState( product.price )
 
-    React.useEffect(() => {
-        setProduct( data.filter( ( product ) => { if ( product.slug == productSlug ) { return product } } )[ 0 ] )
-    }, [pathname]); //TEST THIS TOMORROW
+    //Reset all states when URL changes (Avoids bug when we select another product from within the product page)
+    React.useEffect( () => {
+        //Detect which product we are on, using the URL parameter (productSlug)
+        let newData = data.filter( ( product ) => { if ( product.slug == productSlug ) { return product } } )[ 0 ]
+        setProduct( newData )
+        setPrice( newData.price )
+        setCounterNumber( 1 )
+    }, [pathname])
 
     //Get screenwidth from REDUX
     const screenWidth = useSelector(state => state.appState.screenWidth)

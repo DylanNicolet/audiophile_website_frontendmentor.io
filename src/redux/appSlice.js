@@ -4,25 +4,19 @@ export const appSlice = createSlice({
   name: 'appState',
   initialState: {
     screenWidth: window.innerWidth,
+    cartOpen: false,
   },
   reducers: {
-    /*increment: state => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1
-    },
-    decrement: state => {
-      state.value -= 1
-    },*/
     updateState: (state, action) => {
       state.screenWidth = action.payload.screenWidth
+    },
+    updateCartOpen: (state, action) => {
+      state.cartOpen = action.payload.cartOpen
     },
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { updateState } = appSlice.actions
+export const { updateState, updateCartOpen } = appSlice.actions
 
 export default appSlice.reducer

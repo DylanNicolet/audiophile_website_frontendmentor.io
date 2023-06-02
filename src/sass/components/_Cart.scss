@@ -4,10 +4,10 @@
     background-color: u.$color-background-secondary;
     position: fixed;
     width: 90%;
-    max-height: 80%;
-    overflow: scroll;
     top: 110px;
     left: 5%;
+    max-height: 75vh;
+    overflow-y: scroll;
     border-radius: 10px;
     z-index: 2;
     padding: 7%;
@@ -60,6 +60,8 @@
 
     .products-block{
         margin-bottom: 40px;
+        max-height: 40vh;
+        overflow-y: scroll;
 
         .product{
             display: flex;

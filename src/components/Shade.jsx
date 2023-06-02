@@ -1,22 +1,29 @@
 import React from "react"
 import $ from 'jquery'
+import { useSelector, useDispatch } from "react-redux"
+import { updateCartOpen } from "../redux/appSlice"
 
-export default function Shade(){
-
+export default function Shade() {
+    
+    //REDUX states
+    const dispatch = useDispatch()
+    const cartOpen = useSelector( state => state.appState.cartOpen )
+    
     //Hide menu on mobile and tablette
     function toggleMenu(){
 
         if ($('.mobile-nav').css('display') == 'block'){
-            $(".mobile-nav").slideToggle(700);
+            $( ".mobile-nav" ).slideToggle( 700 );
+            
+            setTimeout(() => {
+                $(".shade").fadeToggle();
+            },  200)
         }
 
-        if ($('.modal-cart').css('display') == 'block'){
-            $(".modal-cart").fadeToggle(700);
+        if ( cartOpen === true ) {
+            dispatch( updateCartOpen( { cartOpen: !cartOpen, } ) )
+            $(".shade").fadeToggle();
         }
-
-        setTimeout(() => {
-            $(".shade").fadeToggle(700);
-        }, 200)
     }
 
     return(

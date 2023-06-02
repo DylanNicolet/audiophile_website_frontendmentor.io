@@ -1,12 +1,15 @@
 import React from "react"
 import { useLocation } from "react-router-dom"
+import $ from 'jquery'
 
 export default function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
 
   React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    $("html, body").animate({
+      scrollTop: 0
+    }, 1000)
+  }, [pathname])
 
-  return null;
+  return null
 }

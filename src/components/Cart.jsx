@@ -1,5 +1,6 @@
 import React from "react"
 import { useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 
 export default function Cart() {
     //States
@@ -11,14 +12,12 @@ export default function Cart() {
 
     //Determine total cart amount
     React.useEffect( () => {
-        setTotalCart(0)
+        setTotalCart( 0 )
+        
         cartData.map( ( product ) => {
             setTotalCart( ( prev ) => ( prev + (product.price * product.amount) ) )
         } )
-    }, [cartData] )
-
-    //Update localStorage automatically when cartData changes
-    React.useEffect(() => {
+        
         localStorage.setItem("cartData", JSON.stringify(cartData))
     }, [cartData] )
     
@@ -91,7 +90,7 @@ export default function Cart() {
                 <p className="total-amount">$ {totalCart}</p>
             </section>
 
-            <button id="button-checkout" className="button--light">CHECKOUT</button>
+            <Link to={`/checkout`}><button id="button-checkout" className="button--light">CHECKOUT</button></Link>
         </section>
     )
 }

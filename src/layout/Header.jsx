@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import $ from 'jquery'
 import hamburgerIcon from "../assets/shared/tablet/icon-hamburger.svg"
 import brandLogo from "../assets/shared/desktop/logo.svg"
@@ -8,22 +8,25 @@ import cartIcon from "../assets/shared/desktop/icon-cart.svg"
 import CategoryNav from "../components/CategoryNav"
 import DeployedNav from "../components/DeployedNav"
 import Cart from "../components/Cart"
+import { updateCartOpen } from "../redux/appSlice"
 
 
-export default function Header(){
+export default function Header() {
+
+    //REDUX states
+    const dispatch = useDispatch()
     const screenWidth = useSelector( state => state.appState.screenWidth )
-    
-    let [CartIsOpen, setCartIsOpen] = React.useState(false) 
+    const cartOpen = useSelector( state => state.appState.cartOpen )
 
     //Open or close mobile menu on hamburger click
     function toggleMenu(){
         $(".mobile-nav").slideToggle(700);
-        $(".shade").fadeToggle(700);
+        $( ".shade" ).fadeToggle( 700 );
     }
 
     function toggleCart() {
-        setCartIsOpen( ( prev ) => ( !prev ) )
-        $(".shade").fadeToggle(300);
+        dispatch( updateCartOpen( { cartOpen: !cartOpen, } ) )
+        $( ".shade" ).fadeToggle( 300 );
     }
 
     return(
@@ -48,7 +51,7 @@ export default function Header(){
                 <CategoryNav header={true} />
             </section>
 
-            {CartIsOpen && <Cart />}
+            {cartOpen && <Cart />}
         </header>
     )
 }
