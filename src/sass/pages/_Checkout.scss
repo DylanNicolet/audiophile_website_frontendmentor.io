@@ -234,5 +234,22 @@
                 }
             }
         }
+
+        .summary__amount{
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            margin-bottom: 10px;
+
+            .description{
+                color: u.$color-text-primary;
+                font-size: 1.1rem;
+            }
+
+            .amount{
+                font-weight: 600;
+                font-size: 1.2rem;
+            }
+        }
     }
 }
