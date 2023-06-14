@@ -5,12 +5,23 @@
     width: 100%;
     padding-top: 25px;
 
+    @include u.desktop-only{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 5%;
+    }
+
     .go-back{
         text-decoration: none;
         color: u.$color-text-primary;
         font-weight: 500;
         font-size: 1.2rem;
         margin-left: 5%;
+
+        @include u.desktop-only{
+            width: 100%;
+        }
     }
 
     .checkout-form{
@@ -19,6 +30,12 @@
         background-color: u.$color-background-secondary;
         border-radius: 10px;
         padding: 20px;
+
+        @include u.desktop-only{
+            width: 65%;
+            margin: 0;
+            padding: 40px;
+        }
 
         .checkout-form__title{
             font-size: 2rem;
@@ -170,9 +187,16 @@
     .summary{
         background-color: u.$color-background-secondary;
         width: 90%;
-        margin: auto;
+        margin: auto auto 120px auto;
         padding: 15px;
         border-radius: 10px;
+
+        @include u.desktop-only{
+            width: 33%;
+            margin: 0;
+            height: fit-content;
+            padding: 30px;
+        }
 
         .summary__title{
             font-size: 1.4rem;
@@ -197,7 +221,7 @@
                     margin-right: 20px;
 
                     @include u.tablet-only{
-                        width: 25%;
+                        width: 13%;
                         height: auto;
                         aspect-ratio: 1/1;
                         object-fit: cover;
@@ -206,7 +230,7 @@
 
                 .title-and-price{
                     margin-right: 20px;
-                    max-width: 30%;
+                    max-width: 35%;
 
                     .title{
                         font-size: 1rem;
@@ -250,6 +274,19 @@
                 font-weight: 600;
                 font-size: 1.2rem;
             }
+        }
+
+        .summary__amount.grand-total{
+            margin-top: 30px;
+            margin-bottom: 30px;
+
+            .amount{
+                color: u.$color-primary;
+            }
+        }
+
+        .button{
+            width: 100%;
         }
     }
 }

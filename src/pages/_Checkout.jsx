@@ -149,7 +149,7 @@ export default function Checkout() {
 
                 <section className="summary__amount">
                     <p className="description">TOTAL</p>
-                    <p className="amount">$ { totalCart }</p>
+                    <p className="amount">$ { totalCart.toLocaleString() }</p>
                 </section>
 
                 <section className="summary__amount">
@@ -159,13 +159,15 @@ export default function Checkout() {
 
                 <section className="summary__amount">
                     <p className="description">VAT (INCLUDED)</p>
-                    <p className="amount">{ vat }</p>
+                    <p className="amount">$ { vat.toLocaleString() }</p>
                 </section>
 
                 <section className="summary__amount grand-total">
                     <p className="description">GRAND TOTAL</p>
-                    <p className="amount">{ grandTotal }</p>
+                    <p className="amount">$ { grandTotal.toLocaleString() }</p>
                 </section>
+
+                <button className="button button--light">CONTINUE & PAY</button>
             </section>
         </section>
     )
