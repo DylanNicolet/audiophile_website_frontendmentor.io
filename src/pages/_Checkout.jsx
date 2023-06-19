@@ -1,13 +1,16 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
+import CheckoutLightBox from "../components/CheckoutLightbox"
+import $ from 'jquery'
 
 export default function Checkout() {
     //States
     let [ totalCart, setTotalCart ] = React.useState( 0 )
     let [ cartData, setCartData ] = React.useState( JSON.parse( localStorage.getItem( "cartData" ) || "[]" ) )
     let [ vat, setVat ] = React.useState( 0 )
-    let [grandTotal, setGrandTotal] = React.useState(0)
+    let [ grandTotal, setGrandTotal ] = React.useState( 0 )
+    let [lightboxOpen, setLightboxOpen] = React.useState( true )
 
     //Get screenwidth from REDUX
     const screenWidth = useSelector( state => state.appState.screenWidth )
@@ -61,6 +64,12 @@ export default function Checkout() {
             </section>
         )
     } )
+
+    function handleCheckout() {
+        $( ".shade" ).show();
+
+        setLightboxOpen(true)
+    }
 
     return (
         <section className="checkout">
@@ -167,8 +176,10 @@ export default function Checkout() {
                     <p className="amount">$ { grandTotal.toLocaleString() }</p>
                 </section>
 
-                <button className="button button--light">CONTINUE & PAY</button>
+                <button className="button button--light" onClick={handleCheckout}>CONTINUE & PAY</button>
             </section>
+
+            {lightboxOpen && <CheckoutLightBox />}
         </section>
     )
 }
