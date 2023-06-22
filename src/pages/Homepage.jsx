@@ -48,7 +48,7 @@ export default function Homepage(){
                 <p className="hero__title">NEW PRODUCT</p>
                 <h1 className="hero__product-name">XX99 Mark II Headphones</h1>
                 <p className="hero__description">Experience natural, lifelike audio and exceptional build quality made for the passionate music enthusiast.</p>
-                <Link to={`#`}>
+                <Link to={`/headphones/xx99-mark-two-headphones`}>
                     <button className="button--light">SEE PRODUCT</button>
                 </Link>
             </section>
@@ -71,7 +71,7 @@ export default function Homepage(){
                     <p className="content__description">
                         Upgrade to premium speakers that are phenomenally built to deliver truly remarkable sound.
                     </p>
-                    <Link>
+                    <Link to={'/speakers/zx9-speaker'}>
                         <button className="button--dark">SEE PRODUCT</button>
                     </Link>
                 </section>
@@ -89,7 +89,7 @@ export default function Homepage(){
 
                 <section className="content">
                     <h1 className="content__title">ZX7 SPEAKER</h1>
-                    <Link>
+                    <Link to={'/speakers/zx7-speaker'}>
                         <button className="button--transparent">SEE PRODUCT</button>
                     </Link>
                 </section>
@@ -109,7 +109,7 @@ export default function Homepage(){
 
                 <section className="content">
                     <h1 className="content__title">YX1 EARPHONES</h1>
-                    <Link>
+                    <Link to={'/earphones/yx1-earphones'}>
                         <button className="button--transparent">SEE PRODUCT</button>
                     </Link>
                 </section>

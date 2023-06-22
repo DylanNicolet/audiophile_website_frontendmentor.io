@@ -1,5 +1,9 @@
 @use "../utils" as u;
 
+button:focus, button:visited, button:active{
+  outline: none;
+}
+
 .button--light{
     background-color: u.$color-primary;
     color: u.$color-text-secondary;

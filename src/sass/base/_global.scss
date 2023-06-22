@@ -15,4 +15,14 @@
 body{
     margin: 0;
     padding-top: 90px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+a:focus,a:visited,a:active{
+  outline: none;
 }

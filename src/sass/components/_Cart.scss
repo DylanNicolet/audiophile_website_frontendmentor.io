@@ -63,6 +63,15 @@
         max-height: 40vh;
         overflow-y: scroll;
 
+        @include u.desktop-only{
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
         .product{
             display: flex;
             flex-wrap: nowrap;
