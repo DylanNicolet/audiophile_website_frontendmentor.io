@@ -1,0 +1,4 @@
+1. Form validations
+2. All links properly routed
+3. Animations
+4. initial page loader

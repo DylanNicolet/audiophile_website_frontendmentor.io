@@ -7,7 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Homepage from "./pages/Homepage"
 import Category from "./pages/Category"
 import ProductPage from "./pages/ProductPage"
-import Checkout from "./pages/_Checkout"
+import Checkout from "./pages/Checkout"
 
 const router = createBrowserRouter([
   {

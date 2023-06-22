@@ -44,7 +44,7 @@ export default function App(){
 
     return(
         <section className="app">
-            {/*<ScrollToTop />*/}
+            <ScrollToTop />
             <Shade />
             <Header />
             <Outlet />

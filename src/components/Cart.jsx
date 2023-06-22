@@ -1,11 +1,15 @@
 import React from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
+import { updateCartOpen } from "../redux/appSlice"
+import $ from 'jquery'
 
 export default function Cart() {
     //States
     let [ totalCart, setTotalCart ] = React.useState( 0 )
     let [ cartData, setCartData ] = React.useState( JSON.parse( localStorage.getItem( "cartData" ) || "[]" ) )
+
+    const dispatch = useDispatch()
     
     //Get screenwidth from REDUX
     const screenWidth = useSelector( state => state.appState.screenWidth )
@@ -38,6 +42,11 @@ export default function Cart() {
     function resetCart() {
         setCartData([])
     }
+
+    function closeCart() {
+        dispatch( updateCartOpen( { cartOpen: false, } ) )
+        $( ".shade" ).fadeToggle( 700 );
+    }
         
     let products = cartData.map( ( product, index ) => {
 
@@ -52,7 +61,7 @@ export default function Cart() {
 
         //Remove last word of product's name to match Figma model
         let lastIndex = product.name.lastIndexOf(" ");
-        let productName = product.name.substring(0, lastIndex);
+        let productName = product.name.substring(0, lastIndex)
 
         return (
             <section className="product" key={index}>
@@ -90,7 +99,7 @@ export default function Cart() {
                 <p className="total-amount">$ {totalCart}</p>
             </section>
 
-            <Link to={`/checkout`}><button id="button-checkout" className="button--light">CHECKOUT</button></Link>
+            <Link to={`/checkout`}><button id="button-checkout" className="button--light" onClick={closeCart}>CHECKOUT</button></Link>
         </section>
     )
 }

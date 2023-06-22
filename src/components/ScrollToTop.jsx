@@ -4,8 +4,7 @@ import $ from 'jquery'
 
 export default function ScrollToTop() {
   const { pathname } = useLocation()
-
-  React.useEffect(() => {
+  React.useEffect( () => {
     $("html, body").animate({
       scrollTop: 0
     }, 1000)

@@ -10,7 +10,7 @@ export default function Checkout() {
     let [ cartData, setCartData ] = React.useState( JSON.parse( localStorage.getItem( "cartData" ) || "[]" ) )
     let [ vat, setVat ] = React.useState( 0 )
     let [ grandTotal, setGrandTotal ] = React.useState( 0 )
-    let [lightboxOpen, setLightboxOpen] = React.useState( true )
+    let [lightboxOpen, setLightboxOpen] = React.useState( false )
 
     //Get screenwidth from REDUX
     const screenWidth = useSelector( state => state.appState.screenWidth )
