@@ -8,6 +8,7 @@ export default function Cart() {
     //States
     let [ totalCart, setTotalCart ] = React.useState( 0 )
     let [ cartData, setCartData ] = React.useState( JSON.parse( localStorage.getItem( "cartData" ) || "[]" ) )
+    let [ checkoutButton, setCheckoutButton ] = React.useState( "CHECKOUT" )
 
     const dispatch = useDispatch()
     
@@ -23,7 +24,14 @@ export default function Cart() {
         } )
         
         localStorage.setItem("cartData", JSON.stringify(cartData))
-    }, [cartData] )
+    }, [ cartData ] )
+    
+    //Change checkout button content if total cart changes
+    React.useEffect( () => {
+        if (checkoutButton === "CART IS EMPTY" && totalCart > 0 ) {
+            setCheckoutButton("CHECKOUT")
+        }
+    }, [totalCart])
     
     function decrementCounter( index ) {
         if ( cartData[ index ].amount > 0 ) {
@@ -43,9 +51,15 @@ export default function Cart() {
         setCartData([])
     }
 
-    function closeCart() {
-        dispatch( updateCartOpen( { cartOpen: false, } ) )
-        $( ".shade" ).fadeToggle( 700 );
+    function closeCart(e) {
+        if ( totalCart != 0 ) {
+            dispatch( updateCartOpen( { cartOpen: false, } ) )
+            $( ".shade" ).fadeToggle( 700 );
+        } else {
+
+            setCheckoutButton( "CART IS EMPTY" )
+            e.preventDefault()
+        }
     }
         
     let products = cartData.map( ( product, index ) => {
@@ -99,7 +113,9 @@ export default function Cart() {
                 <p className="total-amount">$ {totalCart}</p>
             </section>
 
-            <Link to={`/checkout`}><button id="button-checkout" className="button--light" onClick={closeCart}>CHECKOUT</button></Link>
+            
+            <Link to={`/checkout`} onClick={e => closeCart(e)}><button id="button-checkout" className="button--light">{checkoutButton}</button></Link>
+            
         </section>
     )
 }
