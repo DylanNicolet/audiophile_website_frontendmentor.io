@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 import CheckoutLightBox from "../components/CheckoutLightbox"
 import $ from 'jquery'
+import cashOnDeliveryImg from "../assets/checkout/icon-cash-on-delivery.svg"
 
 export default function Checkout() {
     //States
@@ -10,7 +11,21 @@ export default function Checkout() {
     let [ cartData, setCartData ] = React.useState( JSON.parse( localStorage.getItem( "cartData" ) || "[]" ) )
     let [ vat, setVat ] = React.useState( 0 )
     let [ grandTotal, setGrandTotal ] = React.useState( 0 )
-    let [lightboxOpen, setLightboxOpen] = React.useState( false )
+    let [ lightboxOpen, setLightboxOpen ] = React.useState( false )
+    
+    //Form data states 
+    let [ formData, setformData ] = React.useState({
+        name: "",
+        email: "",
+        phoneNumber: "",
+        address: "",
+        zip: "",
+        city: "",
+        country: "",
+        paymentMethod: "e-money",
+        moneyNumber: "",
+        moneyPin: ""
+    })
 
     //Get screenwidth from REDUX
     const screenWidth = useSelector( state => state.appState.screenWidth )
@@ -65,10 +80,51 @@ export default function Checkout() {
         )
     } )
 
-    function handleCheckout() {
-        $( ".shade" ).show();
+    //Update form data on change for every input
+    function updateFormData( e ) {
+        const { name, value } = e.target
+        
+        setformData( ( prev ) => {
+            return {...prev, [name]: value}
+        } )
+    }
 
-        setLightboxOpen(true)
+    //Validate form data at submit
+    function formValidator() {
+
+        //REGEX
+        let regName = /^[a-zA-Z]+ [a-zA-Z]+$/
+        let regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/
+        let regPhoneNumber = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/
+        let regAddress = /[A-Za-z0-9]/
+        let regZip = /^[0-9]{5}(?:-[0-9]{4})?$/
+        let regCity = /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/
+        let regCountry = /^[a-zA-Z]+$/g
+        let regMoneyNumber = /\d{9}/
+        let regMoneyPin = /\d{4}/
+
+        //TESTS
+        !regName.test( formData.name ) ? $( '#name-container' ).addClass( '--invalid' ) : $( '#name-container' ).removeClass( '--invalid' )
+        !regEmail.test( formData.email ) ? $( '#email-container' ).addClass( '--invalid' ) : $( '#email-container' ).removeClass( '--invalid' )
+        !regPhoneNumber.test( formData.phoneNumber ) ? $( '#phoneNumber-container' ).addClass( '--invalid' ) : $( '#phoneNumber-container' ).removeClass( '--invalid' )
+        !regAddress.test( formData.address ) ? $( '#address-container' ).addClass( '--invalid' ) : $( '#address-container' ).removeClass( '--invalid' )
+        !regZip.test( formData.zip ) ? $( '#zip-container' ).addClass( '--invalid' ) : $( '#zip-container' ).removeClass( '--invalid' )
+        !regCity.test( formData.city ) ? $( '#city-container' ).addClass( '--invalid' ) : $( '#city-container' ).removeClass( '--invalid' )
+        !regCountry.test( formData.country ) ? $( '#country-container' ).addClass( '--invalid' ) : $( '#country-container' ).removeClass( '--invalid' )
+        !regMoneyNumber.test( formData.moneyNumber ) ? $( '#moneyNumber-container' ).addClass( '--invalid' ) : $( '#moneyNumber-container' ).removeClass( '--invalid' )
+        !regMoneyPin.test( formData.moneyPin )? $( '#moneyPin-container' ).addClass( '--invalid' ) : $( '#moneyPin-container' ).removeClass( '--invalid' )
+
+        setTimeout(() => {
+            if ( !$( 'body.--invalid' ) ) {
+                $( ".shade" ).show();
+                setLightboxOpen(true)
+            }
+            else {
+                $( "html, body" ).animate( {
+                    scrollTop: 0
+                }, 1000 );
+            }
+        }, 100);
     }
 
     return (
@@ -81,43 +137,50 @@ export default function Checkout() {
                 <section className="billing-details">
                     <h2 className="checkout-form__subtitle">BILLING DETAILS</h2>
 
-                    <section className="label-input">
+                    <section className="label-input" id="name-container">
                         <label htmlFor="name">Name</label>
-                        <input type="text" placeholder="Alexei Ward" name="name" id="name"/>
+                        <p className="invalid-text">Wrong format</p>
+                        <input type="text" placeholder="Alexei Ward" name="name" id="name" value={formData.name} onChange={updateFormData}/>
                     </section>
 
-                    <section className="label-input">
+                    <section className="label-input" id="email-container">
                         <label htmlFor="email">Email Address</label>
-                        <input type="text" placeholder="alexei@mail.com" name="email" id="email"/>
+                        <p className="invalid-text">Wrong format</p>
+                        <input type="email" placeholder="alexei@mail.com" name="email" id="email" value={formData.email} onChange={updateFormData}/>
                     </section>
 
-                    <section className="label-input">
-                        <label htmlFor="phone">Phone Number</label>
-                        <input type="number" placeholder="+1 202-555-0136" name="phone" id="phone"/>
+                    <section className="label-input" id="phoneNumber-container">
+                        <label htmlFor="phoneNumber">Phone Number</label>
+                        <p className="invalid-text">Wrong format</p>
+                        <input type="number" placeholder="+1 202-555-0136" name="phoneNumber" id="phone" value={formData.phoneNumber} onChange={updateFormData}/>
                     </section>
                 </section>
 
                 <section className="shipping-info">
                     <h2 className="checkout-form__subtitle">SHIPPING INFO</h2>
 
-                    <section className="label-input address">
+                    <section className="label-input address" id="address-container">
                         <label htmlFor="address">Your Address</label>
-                        <input type="text" placeholder="1137 Williams Avenue" name="address" id="address"/>
+                        <p className="invalid-text">Wrong format</p>
+                        <input type="text" placeholder="1137 Williams Avenue" name="address" id="address" onChange={updateFormData}/>
                     </section>
 
-                    <section className="label-input">
+                    <section className="label-input" id="zip-container">
                         <label htmlFor="zip">ZIP Code</label>
-                        <input type="number" placeholder="10001" name="zip" id="zip"/>
+                        <p className="invalid-text">Wrong format</p>
+                        <input type="number" placeholder="10001" name="zip" id="zip" onChange={updateFormData}/>
                     </section>
 
-                    <section className="label-input">
+                    <section className="label-input" id="city-container">
                         <label htmlFor="city">City</label>
-                        <input type="text" placeholder="New York" name="city" id="city"/>
+                        <p className="invalid-text">Wrong format</p>
+                        <input type="text" placeholder="New York" name="city" id="city" onChange={updateFormData}/>
                     </section>
 
-                    <section className="label-input">
+                    <section className="label-input" id="country-container">
                         <label htmlFor="country">Country</label>
-                        <input type="text" placeholder="United States" name="country" id="country"/>
+                        <p className="invalid-text">Wrong format</p>
+                        <input type="text" placeholder="United States" name="country" id="country" onChange={updateFormData}/>
                     </section>
                 </section>
 
@@ -126,26 +189,39 @@ export default function Checkout() {
 
                     <fieldset>
                         <h3 className="payment-method-title">Payment method</h3>
-                        <section className="radio-container">
-                            <input type="radio" value="e-money" name="payment-method" id="e-money"/>
+                        <section className={"radio-container " + (formData.paymentMethod === "e-money" ? "--selected" : "")}>
+                            <input type="radio" value="e-money" name="paymentMethod" id="e-money" defaultChecked onClick={updateFormData}/>
                             <label htmlFor="e-money">e-Money</label>
                         </section>
 
-                        <section className="radio-container cash-on-delivery">
-                            <input type="radio" value="cash-on-delivery" name="payment-method" id="cash-on-delivery"/>
-                            <label htmlFor="zip">Cash on Delivery</label>
+                        <section className={"radio-container cash-on-delivery " + (formData.paymentMethod === "cash-on-delivery" ? "--selected" : "")}>
+                            <input type="radio" value="cash-on-delivery" name="paymentMethod" id="cash-on-delivery" onClick={updateFormData}/>
+                            <label htmlFor="cash-on-delivery">Cash on Delivery</label>
                         </section>
                     </fieldset>
 
-                    <section className="label-input">
-                        <label htmlFor="e-money-number">e-Money Number</label>
-                        <input type="number" placeholder="238521993" name="e-money-number" id="e-money-number"/>
-                    </section>
+                    {formData.paymentMethod === "e-money" &&
+                        <section className="label-input" id="moneyNumber-container">
+                            <label htmlFor="moneyNumber">e-Money Number</label>
+                            <p className="invalid-text">Wrong format</p>
+                            <input type="number" placeholder="238521993" name="moneyNumber" id="moneyNumber" onChange={updateFormData} />
+                        </section>
+                    }
 
-                    <section className="label-input">
-                        <label htmlFor="e-money-pin">e-Money PIN</label>
-                        <input type="text" placeholder="6891" name="e-money-pin" id="e-money-pin"/>
-                    </section>
+                    {formData.paymentMethod === "e-money" &&
+                        <section className="label-input" id="moneyPin-container">
+                            <label htmlFor="moneyPin">e-Money PIN</label>
+                            <p className="invalid-text">Wrong format</p>
+                            <input type="number" placeholder="6891" name="moneyPin" id="moneyPin" onChange={updateFormData} />
+                        </section>
+                    }
+
+                    {formData.paymentMethod === "cash-on-delivery" &&
+                        <section className="cash-on-delivery-container">
+                            <img src={cashOnDeliveryImg} alt="Cash on delivery" />
+                            <p>The 'Cash on Delivery' option enables you to pay in cash when our delivery courier arrives at your residence. Just make sure your address is correct so that your order will not be cancelled.</p>
+                        </section>
+                    }
                 </section>
             </form>
 
@@ -176,7 +252,7 @@ export default function Checkout() {
                     <p className="amount">$ { grandTotal.toLocaleString() }</p>
                 </section>
 
-                <button className="button button--light" onClick={handleCheckout}>CONTINUE & PAY</button>
+                <button className="button button--light" onClick={formValidator}>CONTINUE & PAY</button>
             </section>
 
             {lightboxOpen && <CheckoutLightBox />}

@@ -5,6 +5,13 @@
     width: 100%;
     padding-top: 25px;
 
+    //Chrome, Safari, Edge, Opera to remove arrow in number inputs
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none !important;
+        margin: 0 !important;
+    }
+
     @include u.desktop-only{
         display: flex;
         flex-wrap: wrap;
@@ -51,8 +58,31 @@
 
         .label-input{
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
             margin-bottom: 20px;
+
+            &.--invalid{
+                label{
+                    color: u.$color-invalid;
+                }
+
+                input{
+                    border: 2px solid u.$color-invalid;
+                }
+
+                .invalid-text{
+                    display: flex;
+                    align-items: center;
+                }
+            }
+
+            .invalid-text{
+                display: none;
+                margin-left: auto;
+                margin-bottom: 5px;
+                font-size: 0.8rem;
+                color: u.$color-invalid;
+            }
 
             label{
                 margin-bottom: 5px;
@@ -66,6 +96,13 @@
                 border: 1px solid u.$color-text-tertiary;
                 font-size: 0.9rem;
                 font-weight: 600;
+                outline: none;
+                caret-color: u.$color-primary;
+                width: 100%;
+
+                &:focus{
+                    border: 1px solid u.$color-primary;
+                }
             }
         }
 
@@ -167,6 +204,15 @@
                     border-radius: 10px;
                     padding: 15px;
                     margin-bottom: 15px;
+                    cursor: pointer;
+
+                    &:hover{
+                        border: 1px solid u.$color-primary;
+                    }
+
+                    &.--selected{
+                        border: 1px solid u.$color-primary;
+                    }
 
                     @include u.tablet-only{
                         width: 49%;
@@ -174,11 +220,41 @@
 
                     input{
                         margin-right: 15px;
+                        cursor: pointer;
+                        accent-color: u.$color-primary;
+                    }
+
+                    label{
+                        cursor: pointer;
                     }
                 }
 
                 .cash-on-delivery{
                     margin-left: auto;
+                }
+            }
+
+            .cash-on-delivery-container{
+                margin-top: 20px;
+
+                @include u.tablet-only{
+                    display: flex;
+                    flex-wrap: nowrap;
+
+                }
+
+                img{
+                    margin-bottom: 15px;
+
+                    @include u.tablet-only{
+                        margin-bottom: 0;
+                        margin-right: 40px;
+                    }
+                }
+
+                p{
+                    color: u.$color-text-primary;
+                    font-weight: 500;
                 }
             }
         }

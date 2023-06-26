@@ -1,6 +1,5 @@
-1. Form validations
-2. All links properly routed
 3. Animations
 4. initial page loader
 5. Add Ultra wide limitations
 6. Rework homepage img imports
+7. Make cart open when product is added
