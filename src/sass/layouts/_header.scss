@@ -25,6 +25,10 @@ header{
         padding: 0 10%;
     }
 
+    @include u.ultra-wide-only{
+        padding: 0 calc(((100vw - 1990px)/2) + 199px);
+    }
+
     .hamburger{
         background-color: transparent;
         border: none;

@@ -30,6 +30,10 @@
         padding: 40px;
     }
 
+    @include u.ultra-wide-only{
+        right: calc(((100vw - 1990px) / 2) + 199px) ;
+    }
+
     .header{
         display: flex;
         justify-content: space-between;
@@ -51,8 +55,8 @@
                 font-size: 1rem;
                 
                 &:hover{
-                    text-decoration: none;
                     cursor: pointer;
+                    color: u.$color-primary;
                 }
             }
         }
@@ -127,6 +131,10 @@
 
                     @include u.desktop-only{
                         cursor: pointer;
+
+                        &:hover{
+                            color: u.$color-primary;
+                        }
                     }
                 }
 

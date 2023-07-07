@@ -28,6 +28,13 @@
 
         @include u.desktop-only{
             width: 100%;
+            margin-left: 0;
+            margin-bottom: 50px;
+            font-size: 1rem;
+
+            &:hover{
+                color: u.$color-primary;
+            }
         }
     }
 

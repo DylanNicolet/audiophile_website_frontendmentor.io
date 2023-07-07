@@ -111,15 +111,23 @@ export default function Checkout() {
         !regZip.test( formData.zip ) ? $( '#zip-container' ).addClass( '--invalid' ) : $( '#zip-container' ).removeClass( '--invalid' )
         !regCity.test( formData.city ) ? $( '#city-container' ).addClass( '--invalid' ) : $( '#city-container' ).removeClass( '--invalid' )
         !regCountry.test( formData.country ) ? $( '#country-container' ).addClass( '--invalid' ) : $( '#country-container' ).removeClass( '--invalid' )
-        !regMoneyNumber.test( formData.moneyNumber ) ? $( '#moneyNumber-container' ).addClass( '--invalid' ) : $( '#moneyNumber-container' ).removeClass( '--invalid' )
-        !regMoneyPin.test( formData.moneyPin )? $( '#moneyPin-container' ).addClass( '--invalid' ) : $( '#moneyPin-container' ).removeClass( '--invalid' )
 
+        if ( formData.paymentMethod === "e-money" ) {
+            !regMoneyNumber.test( formData.moneyNumber ) ? $( '#moneyNumber-container' ).addClass( '--invalid' ) : $( '#moneyNumber-container' ).removeClass( '--invalid' )
+            !regMoneyPin.test( formData.moneyPin )? $( '#moneyPin-container' ).addClass( '--invalid' ) : $( '#moneyPin-container' ).removeClass( '--invalid' )
+        }
+        else if ( formData.paymentMethod === "cash-on-delivery" ) {
+            $( '#moneyNumber-container' ).removeClass( '--invalid' )
+            $( '#moneyPin-container' ).removeClass( '--invalid' )
+        }
+        
+        //Form is validating even with no data filled, to check why
         setTimeout(() => {
-            if ( !$( 'body.--invalid' ) ) {
+            if ( !$( ".--invalid" ).length ) {
                 $( ".shade" ).show();
                 setLightboxOpen(true)
             }
-            else {
+            else if ( $( ".--invalid" ).length ) {
                 $( "html, body" ).animate( {
                     scrollTop: 0
                 }, 1000 );
@@ -152,7 +160,7 @@ export default function Checkout() {
                     <section className="label-input" id="phoneNumber-container">
                         <label htmlFor="phoneNumber">Phone Number</label>
                         <p className="invalid-text">Wrong format</p>
-                        <input type="number" placeholder="+1 202-555-0136" name="phoneNumber" id="phone" value={formData.phoneNumber} onChange={updateFormData}/>
+                        <input type="number" placeholder="+1 (202) 555-0136" name="phoneNumber" id="phone" value={formData.phoneNumber} onChange={updateFormData}/>
                     </section>
                 </section>
 

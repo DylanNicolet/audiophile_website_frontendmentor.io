@@ -21,8 +21,13 @@ body{
     &::-webkit-scrollbar {
         display: none;
     }
+
+    @include u.ultra-wide-only{
+        max-width: 1990px;
+        margin: auto;
+    }
 }
 
 a:focus,a:visited,a:active{
-  outline: none;
+    outline: none;
 }

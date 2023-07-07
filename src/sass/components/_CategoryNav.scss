@@ -61,6 +61,7 @@
                     font-size: 1rem;
                     margin-bottom: 15px;
                     color: u.$color-secondary;
+                    cursor: pointer;
                 }
 
                 .shop-section{
@@ -68,6 +69,15 @@
                     flex-wrap: nowrap;
                     align-items: center;
                     color: u.$color-text-primary;
+                    cursor: pointer;
+
+                    p{
+                        cursor: pointer;
+                    }
+                    
+                    &:hover{
+                        color: u.$color-primary;
+                    }
 
                     img{
                         margin-left: 20px;

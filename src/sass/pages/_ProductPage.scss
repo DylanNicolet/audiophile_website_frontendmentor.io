@@ -125,6 +125,14 @@
                         border: none;
                         color: u.$color-text-primary;
                         cursor: pointer;
+
+                        @include u.desktop-only{
+                            font-size: 1.5rem;
+
+                            &:hover{
+                                color: u.$color-primary;
+                            }
+                        }
                     }
 
                     .counter__number{
