@@ -1,12 +1,19 @@
 import React from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { useParams, Link } from "react-router-dom"
 import data from "../../data.json"
 import parse from 'html-react-parser'
 import CategoryNav from "../components/CategoryNav"
 import { useLocation } from "react-router-dom"
+import { updateCartOpen } from "../redux/appSlice"
+import $ from 'jquery'
 
 export default function ProductPage() {
+
+    //REDUX states
+    const dispatch = useDispatch()
+    const cartOpen = useSelector( state => state.appState.cartOpen )
+
     //Grab URL
     let { productSlug } = useParams()
 
@@ -74,7 +81,10 @@ export default function ProductPage() {
             cartData[ index ] = newCartData
         }
         
-        localStorage.setItem("cartData", JSON.stringify(cartData))
+        localStorage.setItem( "cartData", JSON.stringify( cartData ) )
+        
+        dispatch( updateCartOpen( { cartOpen: !cartOpen, } ) )
+        $( ".shade" ).fadeToggle( 300 );
     }
 
     //Map over product.includes to generate inTheBox block
