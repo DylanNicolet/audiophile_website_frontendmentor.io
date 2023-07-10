@@ -1,46 +1,20 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import heroMobileBg from "../assets/home/mobile/image-header.jpg"
-import heroTabletBg from "../assets/home/tablet/image-header.jpg"
-import heroDesktopBg from "../assets/home/desktop/image-hero.jpg"
 import { useSelector } from "react-redux"
 import CategoryNav from "../components/CategoryNav"
 import circlePattern from "../assets/home/desktop/pattern-circles.svg"
-import module1MobileBg from "../assets/home/mobile/image-speaker-zx9.png"
-import module2MobileBg from "../assets/home/mobile/image-speaker-zx7.jpg"
-import module3MobileBg from "../assets/home/mobile/image-earphones-yx1.jpg"
-import module1TabletBg from "../assets/home/tablet/image-speaker-zx9.png"
-import module2TabletBg from "../assets/home/tablet/image-speaker-zx7.jpg"
-import module3TabletBg from "../assets/home/tablet/image-earphones-yx1.jpg"
-import module1DesktopBg from "../assets/home/desktop/image-speaker-zx9.png"
-import module2DesktopBg from "../assets/home/desktop/image-speaker-zx7.jpg"
-import module3DesktopBg from "../assets/home/desktop/image-earphones-yx1.jpg"
 
 export default function Homepage(){
-    const screenWidth = useSelector(state => state.appState.screenWidth)
-    let heroBg = undefined
-    let module1Bg = undefined
-    let module2Bg = undefined
-    let module3Bg = undefined
+    const screenWidth = useSelector( state => state.appState.screenWidth )
 
-    if(screenWidth < 768){
-        heroBg = heroMobileBg
-        module1Bg = module1MobileBg
-        module2Bg = module2MobileBg
-        module3Bg = module3MobileBg
-    }
-    else if(screenWidth >= 768 && screenWidth < 920){
-        heroBg = heroTabletBg
-        module1Bg = module1TabletBg
-        module2Bg = module2TabletBg
-        module3Bg = module3TabletBg
-    }
-    else if(screenWidth >= 920){
-        heroBg = heroDesktopBg
-        module1Bg = module1DesktopBg
-        module2Bg = module2DesktopBg
-        module3Bg = module3DesktopBg
-    }
+    let device = "mobile"
+    if ( screenWidth >= 768 && screenWidth < 920 ) { device = "tablet" }
+    else if ( screenWidth >= 920 ) { device = "desktop" }
+
+    let heroBg = "/assets/home/" + device + "/image-hero.jpg"
+    let module1Bg = "/assets/home/" + device + "/image-speaker-zx9.png"
+    let module2Bg = "/assets/home/" + device + "/image-speaker-zx7.jpg"
+    let module3Bg = "/assets/home/" + device + "/image-earphones-yx1.jpg"
 
     return(
         <section className="homepage">

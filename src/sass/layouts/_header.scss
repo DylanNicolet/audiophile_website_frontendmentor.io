@@ -15,6 +15,25 @@ header{
     top: 0;
     left: 0;
 
+    &:after{
+        content: '';
+        width: 100%;
+        height: 1px;
+        background-color: rgba(158, 158, 158, 0.569);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        @include u.tablet-only{
+            width: 90%;
+            left: unset;
+        }
+
+        @include u.desktop-only{
+            width: 80%;
+        }
+    }
+
     @include u.tablet-only{
         justify-content: flex-start;
         height: 90px;
