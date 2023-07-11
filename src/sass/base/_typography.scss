@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
 
-body, button{
+body, button, input, label{
     font-family: 'Manrope', sans-serif;
     font-weight: bold;
 }
@@ -11,7 +11,7 @@ p, h1, h2, h3, h4, h5, h6{
 }
 
 p{
-    font-weight: medium;
+    font-weight: 500;
     font-size: 15px;
 }
 

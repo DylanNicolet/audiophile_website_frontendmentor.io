@@ -11,3 +11,23 @@
     height: 100%;
     margin: 0;
 }
+
+body{
+    margin: 0;
+    padding-top: 90px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @include u.ultra-wide-only{
+        max-width: 1990px;
+        margin: auto;
+    }
+}
+
+a:focus,a:visited,a:active{
+    outline: none;
+}

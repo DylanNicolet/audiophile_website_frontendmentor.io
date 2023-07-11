@@ -3,15 +3,17 @@
 @use "./base/keyframes";
 
 @use "./components/buttons";
+@use "./components/CategoryNav";
+@use "./components/Shade";
+@use "./components/About";
+@use "./components/DeployedNav";
+@use "./components/Cart";
+@use "./components/CheckoutLightbox";
 
-//@use "./layouts/header";
+@use "./layouts/header";
+@use "./layouts/footer";
 
-@use "./pages/startGame";
-@use "./pages/game";
-
-/*@use "./pages/hero";
-@use "./pages/profile";
-@use "./pages/featured-projects";
-@use "./pages/about-me";
-@use "./pages/contact";
-*/
+@use "./pages/Homepage";
+@use "./pages/Category";
+@use "./pages//ProductPage";
+@use "./pages/Checkout";
