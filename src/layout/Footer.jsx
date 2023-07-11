@@ -2,9 +2,9 @@ import React from "react"
 import { Link } from "react-router-dom"
 import brandLogo from "../assets/shared/desktop/logo.svg"
 import DeployedNav from "../components/DeployedNav"
-import IconFacebook from "../assets/shared/desktop/icon-facebook.svg"
-import IconTwitter from "../assets/shared/desktop/icon-twitter.svg"
-import IconInstagram from "../assets/shared/desktop/icon-Instagram.svg"
+import iconFacebook from "../assets/shared/desktop/icon-facebook.svg"
+import iconTwitter from "../assets/shared/desktop/icon-twitter.svg"
+import iconInstagram from "../assets/shared/desktop/icon-Instagram.svg"
 
 export default function Footer(){
     return(
@@ -33,9 +33,9 @@ export default function Footer(){
             </p>
 
             <section className="social-media">
-                <Link to={`#`}><img src={IconFacebook} alt="Link to Facebook"/></Link>
-                <Link to={`#`}><img src={IconTwitter} alt="Link to Twitter" /></Link>
-                <Link to={`#`}><img src={IconInstagram} alt="Link to Instagram" /></Link>
+                <Link to={`#`}><img src={iconFacebook} alt="Link to Facebook" /></Link>
+                <Link to={`#`}><img src={iconTwitter} alt="Link to Twitter" /></Link>
+                <Link to={`#`}><img src={iconInstagram} alt="Link to Instagram" /></Link>
             </section>
         </footer>
     )

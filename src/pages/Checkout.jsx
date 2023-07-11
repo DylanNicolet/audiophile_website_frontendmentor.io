@@ -95,22 +95,17 @@ export default function Checkout() {
         //REGEX
         let regName = /^[a-zA-Z]+ [a-zA-Z]+$/
         let regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/
-        let regPhoneNumber = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/
-        let regAddress = /[A-Za-z0-9]/
-        let regZip = /^[0-9]{5}(?:-[0-9]{4})?$/
-        let regCity = /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/
-        let regCountry = /^[a-zA-Z]+$/g
         let regMoneyNumber = /\d{9}/
         let regMoneyPin = /\d{4}/
 
         //TESTS
         !regName.test( formData.name ) ? $( '#name-container' ).addClass( '--invalid' ) : $( '#name-container' ).removeClass( '--invalid' )
         !regEmail.test( formData.email ) ? $( '#email-container' ).addClass( '--invalid' ) : $( '#email-container' ).removeClass( '--invalid' )
-        !regPhoneNumber.test( formData.phoneNumber ) ? $( '#phoneNumber-container' ).addClass( '--invalid' ) : $( '#phoneNumber-container' ).removeClass( '--invalid' )
-        !regAddress.test( formData.address ) ? $( '#address-container' ).addClass( '--invalid' ) : $( '#address-container' ).removeClass( '--invalid' )
-        !regZip.test( formData.zip ) ? $( '#zip-container' ).addClass( '--invalid' ) : $( '#zip-container' ).removeClass( '--invalid' )
-        !regCity.test( formData.city ) ? $( '#city-container' ).addClass( '--invalid' ) : $( '#city-container' ).removeClass( '--invalid' )
-        !regCountry.test( formData.country ) ? $( '#country-container' ).addClass( '--invalid' ) : $( '#country-container' ).removeClass( '--invalid' )
+        !formData.phoneNumber ? $( '#phoneNumber-container' ).addClass( '--invalid' ) : $( '#phoneNumber-container' ).removeClass( '--invalid' )
+        !formData.address ? $( '#address-container' ).addClass( '--invalid' ) : $( '#address-container' ).removeClass( '--invalid' )
+        !formData.zip ? $( '#zip-container' ).addClass( '--invalid' ) : $( '#zip-container' ).removeClass( '--invalid' )
+        !formData.city ? $( '#city-container' ).addClass( '--invalid' ) : $( '#city-container' ).removeClass( '--invalid' )
+        !formData.country ? $( '#country-container' ).addClass( '--invalid' ) : $( '#country-container' ).removeClass( '--invalid' )
 
         if ( formData.paymentMethod === "e-money" ) {
             !regMoneyNumber.test( formData.moneyNumber ) ? $( '#moneyNumber-container' ).addClass( '--invalid' ) : $( '#moneyNumber-container' ).removeClass( '--invalid' )
@@ -121,7 +116,6 @@ export default function Checkout() {
             $( '#moneyPin-container' ).removeClass( '--invalid' )
         }
         
-        //Form is validating even with no data filled, to check why
         setTimeout(() => {
             if ( !$( ".--invalid" ).length ) {
                 $( ".shade" ).show();
@@ -133,6 +127,11 @@ export default function Checkout() {
                 }, 1000 );
             }
         }, 100);
+    }
+
+    function handleUpdateInput( e ) {
+        //Removes invalid styling when user clicks the input
+        $( e.target ).parent().removeClass( '--invalid' );
     }
 
     return (
@@ -147,20 +146,20 @@ export default function Checkout() {
 
                     <section className="label-input" id="name-container">
                         <label htmlFor="name">Name</label>
-                        <p className="invalid-text">Wrong format</p>
-                        <input type="text" placeholder="Alexei Ward" name="name" id="name" value={formData.name} onChange={updateFormData}/>
+                        <p className="invalid-text">{!formData.name.length ? "Empty field" : "Wrong format"}</p>
+                        <input type="text" placeholder="Alexei Ward" name="name" id="name" value={formData.name} onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
                     </section>
 
                     <section className="label-input" id="email-container">
                         <label htmlFor="email">Email Address</label>
-                        <p className="invalid-text">Wrong format</p>
-                        <input type="email" placeholder="alexei@mail.com" name="email" id="email" value={formData.email} onChange={updateFormData}/>
+                        <p className="invalid-text">{!formData.email.length ? "Empty field" : "Wrong format"}</p>
+                        <input type="email" placeholder="alexei@mail.com" name="email" id="email" value={formData.email} onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
                     </section>
 
                     <section className="label-input" id="phoneNumber-container">
                         <label htmlFor="phoneNumber">Phone Number</label>
-                        <p className="invalid-text">Wrong format</p>
-                        <input type="number" placeholder="+1 (202) 555-0136" name="phoneNumber" id="phone" value={formData.phoneNumber} onChange={updateFormData}/>
+                        <p className="invalid-text">Empty field</p>
+                        <input type="number" placeholder="+1 (202) 555-0136" name="phoneNumber" id="phone" value={formData.phoneNumber} onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
                     </section>
                 </section>
 
@@ -169,26 +168,26 @@ export default function Checkout() {
 
                     <section className="label-input address" id="address-container">
                         <label htmlFor="address">Your Address</label>
-                        <p className="invalid-text">Wrong format</p>
-                        <input type="text" placeholder="1137 Williams Avenue" name="address" id="address" onChange={updateFormData}/>
+                        <p className="invalid-text">Empty field</p>
+                        <input type="text" placeholder="1137 Williams Avenue" name="address" id="address" onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
                     </section>
 
                     <section className="label-input" id="zip-container">
                         <label htmlFor="zip">ZIP Code</label>
-                        <p className="invalid-text">Wrong format</p>
-                        <input type="number" placeholder="10001" name="zip" id="zip" onChange={updateFormData}/>
+                        <p className="invalid-text">Empty field</p>
+                        <input type="number" placeholder="10001" name="zip" id="zip" onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
                     </section>
 
                     <section className="label-input" id="city-container">
                         <label htmlFor="city">City</label>
-                        <p className="invalid-text">Wrong format</p>
-                        <input type="text" placeholder="New York" name="city" id="city" onChange={updateFormData}/>
+                        <p className="invalid-text">Empty field</p>
+                        <input type="text" placeholder="New York" name="city" id="city" onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
                     </section>
 
                     <section className="label-input" id="country-container">
                         <label htmlFor="country">Country</label>
-                        <p className="invalid-text">Wrong format</p>
-                        <input type="text" placeholder="United States" name="country" id="country" onChange={updateFormData}/>
+                        <p className="invalid-text">Empty field</p>
+                        <input type="text" placeholder="United States" name="country" id="country" onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
                     </section>
                 </section>
 
@@ -211,16 +210,16 @@ export default function Checkout() {
                     {formData.paymentMethod === "e-money" &&
                         <section className="label-input" id="moneyNumber-container">
                             <label htmlFor="moneyNumber">e-Money Number</label>
-                            <p className="invalid-text">Wrong format</p>
-                            <input type="number" placeholder="238521993" name="moneyNumber" id="moneyNumber" onChange={updateFormData} />
+                            <p className="invalid-text">{!formData.moneyNumber.length ? "Empty field" : "Wrong format"}</p>
+                            <input type="number" placeholder="238521993" name="moneyNumber" id="moneyNumber" onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
                         </section>
                     }
 
                     {formData.paymentMethod === "e-money" &&
                         <section className="label-input" id="moneyPin-container">
                             <label htmlFor="moneyPin">e-Money PIN</label>
-                            <p className="invalid-text">Wrong format</p>
-                            <input type="number" placeholder="6891" name="moneyPin" id="moneyPin" onChange={updateFormData} />
+                            <p className="invalid-text">{!formData.moneyPin.length ? "Empty field" : "Wrong format"}</p>
+                            <input type="number" placeholder="6891" name="moneyPin" id="moneyPin" onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
                         </section>
                     }
 
