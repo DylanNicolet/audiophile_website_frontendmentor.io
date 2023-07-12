@@ -44,7 +44,7 @@ export default function Checkout() {
 
     //Determine grandTotal
     React.useEffect( () => {
-        setGrandTotal(totalCart + vat + 50)
+        setGrandTotal(totalCart + 50)
     }, [ vat ] )
 
     let products = cartData.map( ( product, index ) => {
