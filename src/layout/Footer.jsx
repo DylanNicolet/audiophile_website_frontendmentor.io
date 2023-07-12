@@ -4,7 +4,7 @@ import brandLogo from "../assets/shared/desktop/logo.svg"
 import DeployedNav from "../components/DeployedNav"
 import iconFacebook from "../assets/shared/desktop/icon-facebook.svg"
 import iconTwitter from "../assets/shared/desktop/icon-twitter.svg"
-import iconInstagram from "../assets/shared/desktop/icon-Instagram.svg"
+import iconInstagram from "../assets/shared/desktop/icon-instagram.svg"
 
 export default function Footer(){
     return(

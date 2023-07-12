@@ -5,7 +5,7 @@ import { Outlet, useLocation } from "react-router-dom"
 import { updateState } from "./redux/appSlice"
 import Header from "./layout/Header"
 import Shade from "./components/Shade"
-import About from "./components/about"
+import About from "./components/About"
 import Footer from "./layout/Footer"
 import ScrollToTop from "./components/ScrollToTop"
 
