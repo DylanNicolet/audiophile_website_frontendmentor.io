@@ -11,10 +11,10 @@ export default function Homepage(){
     if ( screenWidth >= 768 && screenWidth < 920 ) { device = "tablet" }
     else if ( screenWidth >= 920 ) { device = "desktop" }
 
-    let heroBg = "/assets/home/" + device + "/image-hero.jpg"
-    let module1Bg = "/assets/home/" + device + "/image-speaker-zx9.png"
-    let module2Bg = "/assets/home/" + device + "/image-speaker-zx7.jpg"
-    let module3Bg = "/assets/home/" + device + "/image-earphones-yx1.jpg"
+    let heroBg = require("/assets/home/" + device + "/image-hero.jpg")
+    let module1Bg = require("/assets/home/" + device + "/image-speaker-zx9.png")
+    let module2Bg = require("/assets/home/" + device + "/image-speaker-zx7.jpg")
+    let module3Bg = require("/assets/home/" + device + "/image-earphones-yx1.jpg")
 
     return(
         <section className="homepage">
