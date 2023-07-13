@@ -3,20 +3,21 @@ import aboutImageMobile from "../assets/shared/mobile/image-best-gear.jpg"
 import aboutImageTablet from "../assets/shared/tablet/image-best-gear.jpg"
 import aboutImageDesktop from "../assets/shared/desktop/image-best-gear.jpg"
 import { useSelector } from "react-redux"
+import imgData from "../../imgData.json"
 
-export default function About(){
+export default function About() {
 
     const screenWidth = useSelector(state => state.appState.screenWidth)
     let aboutImage = undefined
 
     if(screenWidth < 768){
-        aboutImage = aboutImageMobile
+        aboutImage = imgData.aboutImg.mobile
     }
     else if(screenWidth >= 768 && screenWidth < 920){
-        aboutImage = aboutImageTablet
+        aboutImage = imgData.aboutImg.tablet
     }
     else if(screenWidth >= 920){
-        aboutImage = aboutImageDesktop
+        aboutImage = imgData.aboutImg.desktop
     }
 
     return(
