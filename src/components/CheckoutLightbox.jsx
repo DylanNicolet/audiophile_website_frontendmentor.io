@@ -14,15 +14,6 @@ export default function CheckoutLightBox() {
     //Get screenwidth from REDUX
     const screenWidth = useSelector( state => state.appState.screenWidth )
 
-    //Define image source according to screen size
-    let source = "/assets/product-" + product.slug + "/mobile/image-product.jpg"
-    if(screenWidth >= 768 && screenWidth < 920){
-        source = "/assets/product-" + product.slug + "/tablet/image-product.jpg"
-    }
-    else if(screenWidth >= 920){
-        source = "/assets/product-" + product.slug + "/desktop/image-product.jpg"
-    }
-
     //Remove last word of product's name to match Figma model
     let lastIndex = product.name.lastIndexOf(" ");
     let productName = product.name.substring( 0, lastIndex )
