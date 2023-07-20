@@ -49,7 +49,7 @@ export default function CheckoutLightBox() {
             <section className="cart-and-price">
                 <section className="cart">
                     <section className="cart__product">
-                        <img src={source} alt={productName} />
+                        <img src={product.cartImage} alt={productName} />
                         <section className="cart__title-price">
                             <h4>{productName}</h4>
                             <p>$ { productPrice.toLocaleString() }</p>

@@ -66,7 +66,8 @@ export default function ProductPage() {
             amount: counterNumber,
             price: product.price,
             name: product.name,
-            slug: product.slug
+            slug: product.slug,
+            cartImage: product.cartImage
         }
 
         //Check if this product already exists in localStorage

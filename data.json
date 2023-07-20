@@ -14,6 +14,7 @@
       "tablet": "https://i.imgur.com/QCtzFCF.jpg",
       "desktop": "https://i.imgur.com/RSlXnaa.jpg"
     },
+    "cartImage":"https://i.imgur.com/FixE5vj.jpg",
     "new": true,
     "price": 599,
     "description": "Tailor your listening experience with bespoke dynamic drivers from the new YX1 Wireless Earphones. Enjoy incredible high-fidelity sound even in noisy environments with its active noise cancellation feature.",
@@ -102,6 +103,7 @@
       "tablet": "https://i.imgur.com/32x7slT.jpg",
       "desktop": "https://i.imgur.com/EbhRhRm.jpg"
     },
+    "cartImage":"https://i.imgur.com/POBEkqo.jpg",
     "new": false,
     "price": 899,
     "description": "Enjoy your audio almost anywhere and customize it to your specific tastes with the XX59 headphones. The stylish yet durable versatile wireless headset is a brilliant companion at home or on the move.",
@@ -186,6 +188,7 @@
       "tablet": "https://i.imgur.com/Iv44bHC.jpg",
       "desktop": "https://i.imgur.com/FcV0zeK.jpg"
     },
+    "cartImage":"https://i.imgur.com/xf0TvUW.jpg",
     "new": false,
     "price": 1750,
     "description": "As the gold standard for headphones, the classic XX99 Mark I offers detailed and accurate audio reproduction for audiophiles, mixing engineers, and music aficionados alike in studios and on the go.",
@@ -270,6 +273,7 @@
       "tablet": "https://i.imgur.com/8OyfMRw.jpg",
       "desktop": "https://i.imgur.com/7b0LyTo.jpg"
     },
+    "cartImage":"https://i.imgur.com/PcgyrnS.jpg",
     "new": true,
     "price": 2999,
     "description": "The new XX99 Mark II headphones is the pinnacle of pristine audio. It redefines your premium headphone experience by reproducing the balanced depth and precision of studio-quality sound.",
@@ -358,6 +362,7 @@
       "tablet": "https://i.imgur.com/r2bm73H.jpg",
       "desktop": "https://i.imgur.com/jsTcoUR.jpg"
     },
+    "cartImage":"https://i.imgur.com/RJx9TFY.jpg",
     "new": false,
     "price": 3500,
     "description": "Stream high quality sound wirelessly with minimal to no loss. The ZX7 speaker uses high-end audiophile components that represents the top of the line powered speakers for home or studio use.",
@@ -446,6 +451,7 @@
       "tablet": "https://i.imgur.com/6qxPkHc.jpg",
       "desktop": "https://i.imgur.com/6eetWjL.jpg"
     },
+    "cartImage":"https://i.imgur.com/Atjrpx9.jpg",
     "new": true,
     "price": 4500,
     "description": "Upgrade your sound system with the all new ZX9 active speaker. It’s a bookshelf speaker system that offers truly wireless connectivity -- creating new possibilities for more pleasing and practical audio setups.",

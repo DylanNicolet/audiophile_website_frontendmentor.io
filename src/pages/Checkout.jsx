@@ -49,15 +49,6 @@ export default function Checkout() {
 
     let products = cartData.map( ( product, index ) => {
 
-        //Define image source according to screen size
-        let source = "/assets/product-" + product.slug + "/mobile/image-product.jpg"
-        if(screenWidth >= 768 && screenWidth < 920){
-            source = "/assets/product-" + product.slug + "/tablet/image-product.jpg"
-        }
-        else if(screenWidth >= 920){
-            source = "/assets/product-" + product.slug + "/desktop/image-product.jpg"
-        }
-
         //Remove last word of product's name to match Figma model
         let lastIndex = product.name.lastIndexOf(" ");
         let productName = product.name.substring(0, lastIndex);
@@ -65,7 +56,7 @@ export default function Checkout() {
         return (
             <section className="product" key={index}>
 
-                <img src={source} alt="image" className="product__image"/>
+                <img src={product.cartImage} alt="image" className="product__image"/>
 
                 <section className="title-and-price">
                     <h3 className="title">{ productName }</h3>
