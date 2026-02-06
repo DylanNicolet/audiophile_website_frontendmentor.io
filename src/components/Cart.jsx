@@ -2,7 +2,6 @@ import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { updateCartOpen } from "../redux/appSlice"
-import $ from 'jquery'
 
 export default function Cart() {
     //States
@@ -54,7 +53,6 @@ export default function Cart() {
     function closeCart(e) {
         if ( totalCart != 0 ) {
             dispatch( updateCartOpen( { cartOpen: false, } ) )
-            $( ".shade" ).fadeToggle( 700 );
         } else {
 
             setCheckoutButton( "CART IS EMPTY" )

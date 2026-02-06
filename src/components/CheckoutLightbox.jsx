@@ -2,9 +2,8 @@ import React from "react"
 import tick from "../assets/checkout/icon-order-confirmation.svg"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import $ from 'jquery'
 
-export default function CheckoutLightBox() {
+export default function CheckoutLightBox({checkoutLightboxClosed}) {
     //states
     let [ cartData, setCartData ] = React.useState( JSON.parse( localStorage.getItem( "cartData" ) || "[]" ) )
     let product = cartData[ 0 ]
@@ -26,10 +25,6 @@ export default function CheckoutLightBox() {
             setTotalCart( ( prev ) => ( prev + (product.price * product.amount) ) )
         } )
     }, [] )
-
-    function closeShade() {
-        $( ".shade" ).fadeToggle( 700 );
-    }
 
     return (
         <section className="checkout-lightbox">
@@ -59,7 +54,7 @@ export default function CheckoutLightBox() {
                 </section>
             </section>
 
-            <Link to={`/`}><button className="button-back-home button--light" onClick={closeShade}>BACK TO HOME</button></Link>
+            <Link to={`/`}><button className="button-back-home button--light" onClick={checkoutLightboxClosed}>BACK TO HOME</button></Link>
         </section>
     )
 }

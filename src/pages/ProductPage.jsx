@@ -6,7 +6,6 @@ import parse from 'html-react-parser'
 import CategoryNav from "../components/CategoryNav"
 import { useLocation } from "react-router-dom"
 import { updateCartOpen } from "../redux/appSlice"
-import $ from 'jquery'
 
 export default function ProductPage() {
 
@@ -85,7 +84,6 @@ export default function ProductPage() {
         localStorage.setItem( "cartData", JSON.stringify( cartData ) )
         
         dispatch( updateCartOpen( { cartOpen: !cartOpen, } ) )
-        $( ".shade" ).fadeToggle( 300 );
     }
 
     //Map over product.includes to generate inTheBox block

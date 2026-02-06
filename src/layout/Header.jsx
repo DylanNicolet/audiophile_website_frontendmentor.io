@@ -46,7 +46,7 @@ export default function Header() {
             { mobileNavOpen &&
                 <>
                     <section className="mobile-nav">
-                        <CategoryNav header={true} />
+                        <CategoryNav header={true} linkClicked={() => setMobileNavOpen(false)}/>
                     </section>
                     <Shade closeShade={() => setMobileNavOpen(false)} />
                 </>

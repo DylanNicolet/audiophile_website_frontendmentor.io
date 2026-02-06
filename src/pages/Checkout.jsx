@@ -1,9 +1,9 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { useSelector } from "react-redux"
 import CheckoutLightBox from "../components/CheckoutLightbox"
 import $ from 'jquery'
 import cashOnDeliveryImg from "../assets/checkout/icon-cash-on-delivery.svg"
+import Shade from "../components/Shade"
 
 export default function Checkout() {
     //States
@@ -26,9 +26,6 @@ export default function Checkout() {
         moneyNumber: "",
         moneyPin: ""
     })
-
-    //Get screenwidth from REDUX
-    const screenWidth = useSelector( state => state.appState.screenWidth )
 
     //Determine totalCart and VAT
     React.useEffect( () => {
@@ -253,7 +250,12 @@ export default function Checkout() {
                 <button className="button button--light" onClick={formValidator}>CONTINUE & PAY</button>
             </section>
 
-            {lightboxOpen && <CheckoutLightBox />}
+            {   lightboxOpen && 
+                <>
+                    <CheckoutLightBox checkoutLightboxClosed={() => setLightboxOpen(false)} />
+                    <Shade closeShade={() => setLightboxOpen(false)} />
+                </>
+            }
         </section>
     )
 }

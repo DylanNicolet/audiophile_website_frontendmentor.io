@@ -1,4 +1,3 @@
-import React from "react"
 import { Link } from "react-router-dom"
 import brandLogo from "../assets/shared/desktop/logo.svg"
 import DeployedNav from "../components/DeployedNav"
@@ -9,7 +8,6 @@ import iconInstagram from "../assets/shared/desktop/icon-instagram.svg"
 export default function Footer(){
     return(
         <footer>
-
             <section className="deco-container">
                 <section className="deco"></section>
             </section>
