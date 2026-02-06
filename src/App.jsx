@@ -1,6 +1,5 @@
 import React from "react"
 import { useDispatch } from 'react-redux'
-import "./sass/App.css"
 import { Outlet, useLocation } from "react-router-dom"
 import { updateState } from "./redux/appSlice"
 import Header from "./layout/Header"
@@ -45,7 +44,7 @@ export default function App(){
     return(
         <section className="app">
             <ScrollToTop />
-            <Shade />
+            {/* <Shade /> */}
             <Header />
             <Outlet />
             {pathname != "/checkout" && <About />}

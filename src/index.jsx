@@ -7,6 +7,7 @@ import Homepage from "./pages/Homepage"
 import Category from "./pages/Category"
 import ProductPage from "./pages/ProductPage"
 import Checkout from "./pages/Checkout"
+import "./sass/App.scss"
 
 const router = createBrowserRouter([
   {

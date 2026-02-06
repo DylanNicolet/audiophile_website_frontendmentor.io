@@ -1,9 +1,8 @@
-import React from "react"
 import $ from 'jquery'
 import { useSelector, useDispatch } from "react-redux"
 import { updateCartOpen } from "../redux/appSlice"
 
-export default function Shade() {
+export default function Shade({closeShade}) {
     
     //REDUX states
     const dispatch = useDispatch()
@@ -29,8 +28,7 @@ export default function Shade() {
     return(
         <section 
             className="shade"
-            style={{"display" : "none"}}
-            onClick={toggleMenu}
+            onClick={closeShade}
         ></section>
     )
 }
