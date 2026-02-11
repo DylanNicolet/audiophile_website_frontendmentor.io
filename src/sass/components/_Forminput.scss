@@ -1,0 +1,53 @@
+@use "../utils" as u;
+
+.label-input,
+.input-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    width: 100%;
+
+    &.--invalid{
+        label{
+            color: u.$color-invalid;
+        }
+
+        input{
+            border: 2px solid u.$color-invalid;
+        }
+
+        .invalid-text{
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .invalid-text{
+        display: none;
+        margin-left: auto;
+        margin-bottom: 5px;
+        font-size: 0.8rem;
+        color: u.$color-invalid;
+    }
+
+    label{
+        margin-bottom: 5px;
+        font-size: 0.9rem;
+        font-weight: 800;
+    }
+
+    input{
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid u.$color-text-tertiary;
+        font-size: 0.9rem;
+        font-weight: 600;
+        outline: none;
+        caret-color: u.$color-primary;
+        width: 100%;
+
+        &:focus{
+            border: 1px solid u.$color-primary;
+        }
+    }
+}

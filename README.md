@@ -31,11 +31,11 @@ Users should be able to:
 
 ### Built with
 
-- React
+- React ~~using Create-React-App~~ using Vite (updated in v2 - 2026)
 - React Redux
 - React Router
-- JQuery
-- SASS/SCSS
+- ~~JQuery~~ (Removed in v2 - 2026)
+- SCSS
 
 ## Author
 

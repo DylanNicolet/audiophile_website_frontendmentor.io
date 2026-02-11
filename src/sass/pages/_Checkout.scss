@@ -63,53 +63,9 @@
             margin-bottom: 20px;
         }
 
-        .label-input{
-            display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-
-            &.--invalid{
-                label{
-                    color: u.$color-invalid;
-                }
-
-                input{
-                    border: 2px solid u.$color-invalid;
-                }
-
-                .invalid-text{
-                    display: flex;
-                    align-items: center;
-                }
-            }
-
-            .invalid-text{
-                display: none;
-                margin-left: auto;
-                margin-bottom: 5px;
-                font-size: 0.8rem;
-                color: u.$color-invalid;
-            }
-
-            label{
-                margin-bottom: 5px;
-                font-size: 0.9rem;
-                font-weight: 800;
-            }
-
-            input{
-                padding: 15px;
-                border-radius: 10px;
-                border: 1px solid u.$color-text-tertiary;
-                font-size: 0.9rem;
-                font-weight: 600;
-                outline: none;
-                caret-color: u.$color-primary;
-                width: 100%;
-
-                &:focus{
-                    border: 1px solid u.$color-primary;
-                }
+        @include u.tablet-only {
+            .input-container {
+                width: 49%;
             }
         }
 
@@ -125,12 +81,6 @@
             .checkout-form__subtitle{
                 @include u.tablet-only{
                     width: 100%;
-                }
-            }
-
-            .label-input{
-                @include u.tablet-only{
-                    width: 49%;
                 }
             }
         }
@@ -150,14 +100,10 @@
                 }
             }
 
-            .label-input{
+            #address-input-container {
                 @include u.tablet-only{
-                    width: 49%;
+                    width: 100%;
                 }
-            }
-
-            .address{
-                width: 100%;
             }
         }
 
@@ -173,12 +119,6 @@
             .checkout-form__subtitle{
                 @include u.tablet-only{
                     width: 100%;
-                }
-            }
-
-            .label-input{
-                @include u.tablet-only{
-                    width: 49%;
                 }
             }
 

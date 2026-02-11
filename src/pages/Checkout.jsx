@@ -1,19 +1,21 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import CheckoutLightBox from "../components/CheckoutLightbox"
-import $ from 'jquery'
 import cashOnDeliveryImg from "../assets/checkout/icon-cash-on-delivery.svg"
 import Shade from "../components/Shade"
+import FormInput from "../components/FormInput"
 
 export default function Checkout() {
-    //States
+    // States
     let [ totalCart, setTotalCart ] = React.useState( 0 )
     let [ cartData, setCartData ] = React.useState( JSON.parse( localStorage.getItem( "cartData" ) || "[]" ) )
     let [ vat, setVat ] = React.useState( 0 )
     let [ grandTotal, setGrandTotal ] = React.useState( 0 )
     let [ lightboxOpen, setLightboxOpen ] = React.useState( false )
+
+    let [allErrors, setAllErrors] = React.useState({})
     
-    //Form data states 
+    // Form data states 
     let [ formData, setformData ] = React.useState({
         name: "",
         email: "",
@@ -27,26 +29,26 @@ export default function Checkout() {
         moneyPin: ""
     })
 
-    //Determine totalCart and VAT
+    // Determine totalCart and VAT
     React.useEffect( () => {
         cartData.map( ( product ) => {
             setTotalCart( ( prev ) => ( prev + (product.price * product.amount) ) )
         } )
     }, [] )
 
-    //Determine VAT as 20% of total excluding shipping
+    // Determine VAT as 20% of total excluding shipping
     React.useEffect( () => {
         setVat( Math.round( ( 20 / 100 ) * totalCart ) )
     }, [ totalCart ] )
 
-    //Determine grandTotal
+    // Determine grandTotal
     React.useEffect( () => {
         setGrandTotal(totalCart + 50)
     }, [ vat ] )
 
     let products = cartData.map( ( product, index ) => {
 
-        //Remove last word of product's name to match Figma model
+        // Remove last word of product's name to match Figma model
         let lastIndex = product.name.lastIndexOf(" ");
         let productName = product.name.substring(0, lastIndex);
 
@@ -68,7 +70,7 @@ export default function Checkout() {
         )
     } )
 
-    //Update form data on change for every input
+    // Update form data on change for every input
     function updateFormData( e ) {
         const { name, value } = e.target
         
@@ -77,49 +79,63 @@ export default function Checkout() {
         } )
     }
 
-    //Validate form data at submit
+    // Validate form data at submit
     function formValidator() {
 
-        //REGEX
+        // REGEX
         let regName = /^[a-zA-Z]+ [a-zA-Z]+$/
         let regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/
         let regMoneyNumber = /\d{9}/
         let regMoneyPin = /\d{4}/
 
-        //TESTS
-        !regName.test( formData.name ) ? $( '#name-container' ).addClass( '--invalid' ) : $( '#name-container' ).removeClass( '--invalid' )
-        !regEmail.test( formData.email ) ? $( '#email-container' ).addClass( '--invalid' ) : $( '#email-container' ).removeClass( '--invalid' )
-        !formData.phoneNumber ? $( '#phoneNumber-container' ).addClass( '--invalid' ) : $( '#phoneNumber-container' ).removeClass( '--invalid' )
-        !formData.address ? $( '#address-container' ).addClass( '--invalid' ) : $( '#address-container' ).removeClass( '--invalid' )
-        !formData.zip ? $( '#zip-container' ).addClass( '--invalid' ) : $( '#zip-container' ).removeClass( '--invalid' )
-        !formData.city ? $( '#city-container' ).addClass( '--invalid' ) : $( '#city-container' ).removeClass( '--invalid' )
-        !formData.country ? $( '#country-container' ).addClass( '--invalid' ) : $( '#country-container' ).removeClass( '--invalid' )
+        // TESTS
+        const newErrors = {}
+
+        if (!formData.name) {
+            newErrors.name = 'This field is empty'
+        } else if (!regName.test( formData.name )) {
+            newErrors.name = 'Invalid format'
+        }
+
+        if (!formData.email) {
+            newErrors.email = 'This field is empty'
+        } else if (!regEmail.test( formData.email )) {
+            newErrors.email = 'Invalid format'
+        }
+
+        !formData.phoneNumber && (newErrors.phoneNumber = 'This field is empty');
+        !formData.address && (newErrors.address = 'This field is empty');
+        !formData.zip && (newErrors.zip = 'This field is empty');
+        !formData.city && (newErrors.city = 'This field is empty');
+        !formData.country && (newErrors.country = 'This field is empty');
 
         if ( formData.paymentMethod === "e-money" ) {
-            !regMoneyNumber.test( formData.moneyNumber ) ? $( '#moneyNumber-container' ).addClass( '--invalid' ) : $( '#moneyNumber-container' ).removeClass( '--invalid' )
-            !regMoneyPin.test( formData.moneyPin )? $( '#moneyPin-container' ).addClass( '--invalid' ) : $( '#moneyPin-container' ).removeClass( '--invalid' )
-        }
-        else if ( formData.paymentMethod === "cash-on-delivery" ) {
-            $( '#moneyNumber-container' ).removeClass( '--invalid' )
-            $( '#moneyPin-container' ).removeClass( '--invalid' )
-        }
-        
-        setTimeout(() => {
-            if ( !$( ".--invalid" ).length ) {
-                $( ".shade" ).show();
-                setLightboxOpen(true)
+            if (!formData.moneyNumber) {
+                newErrors.moneyNumber = 'This field is empty'
+            } else if (!regMoneyNumber.test( formData.moneyNumber )) {
+                newErrors.moneyNumber = 'Invalid format'
             }
-            else if ( $( ".--invalid" ).length ) {
-                $( "html, body" ).animate( {
-                    scrollTop: 0
-                }, 1000 );
-            }
-        }, 100);
-    }
 
-    function handleUpdateInput( e ) {
-        //Removes invalid styling when user clicks the input
-        $( e.target ).parent().removeClass( '--invalid' );
+            if (!formData.moneyPin) {
+                newErrors.moneyPin = 'This field is empty'
+            } else if (!regMoneyPin.test( formData.moneyPin )) {
+                newErrors.moneyPin = 'Invalid format'
+            }
+        }
+
+        setAllErrors(newErrors)
+
+        // If no errors are found, we submit the form
+        if ( Object.keys(newErrors).length === 0 ) {
+            setLightboxOpen(true)
+        }
+        else { // else scroll to the top of the form
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+            })
+        }
     }
 
     return (
@@ -132,51 +148,89 @@ export default function Checkout() {
                 <section className="billing-details">
                     <h2 className="checkout-form__subtitle">BILLING DETAILS</h2>
 
-                    <section className="label-input" id="name-container">
-                        <label htmlFor="name">Name</label>
-                        <p className="invalid-text">{!formData.name.length ? "Empty field" : "Wrong format"}</p>
-                        <input type="text" placeholder="Alexei Ward" name="name" id="name" value={formData.name} onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
-                    </section>
+                    {/* Input name */}
+                    <FormInput 
+                        name="name" 
+                        id="name" 
+                        type='text' 
+                        placeholder="Alexei Ward"
+                        label="Name" 
+                        autoComplete="name" 
+                        onChange={updateFormData} 
+                        errorText={allErrors.name}
+                    />
 
-                    <section className="label-input" id="email-container">
-                        <label htmlFor="email">Email Address</label>
-                        <p className="invalid-text">{!formData.email.length ? "Empty field" : "Wrong format"}</p>
-                        <input type="email" placeholder="alexei@mail.com" name="email" id="email" value={formData.email} onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
-                    </section>
+                    {/* Input email */}
+                    <FormInput 
+                        name="email" 
+                        id="email" 
+                        type='email' 
+                        placeholder="alexei@mail.com" 
+                        label="Email Address" 
+                        autoComplete="email" 
+                        onChange={updateFormData} 
+                        errorText={allErrors.email}
+                    />
 
-                    <section className="label-input" id="phoneNumber-container">
-                        <label htmlFor="phoneNumber">Phone Number</label>
-                        <p className="invalid-text">Empty field</p>
-                        <input type="number" placeholder="+1 (202) 555-0136" name="phoneNumber" id="phone" value={formData.phoneNumber} onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
-                    </section>
+                    {/* Input Phone Number */}
+                    <FormInput 
+                        name="phoneNumber" 
+                        id="phoneNumber" 
+                        type='number' 
+                        placeholder="+1 (202) 555-0136" 
+                        label="Phone Number" 
+                        autoComplete="tel" 
+                        onChange={updateFormData} 
+                        errorText={allErrors.phoneNumber}
+                    />
                 </section>
 
                 <section className="shipping-info">
                     <h2 className="checkout-form__subtitle">SHIPPING INFO</h2>
 
-                    <section className="label-input address" id="address-container">
-                        <label htmlFor="address">Your Address</label>
-                        <p className="invalid-text">Empty field</p>
-                        <input type="text" placeholder="1137 Williams Avenue" name="address" id="address" onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
-                    </section>
+                    {/* Input Address */}
+                    <FormInput 
+                        name="address" 
+                        id="address" 
+                        type='text' 
+                        placeholder="1137 Williams Avenue" 
+                        label="Your Address" 
+                        onChange={updateFormData} 
+                        errorText={allErrors.address}
+                    />
 
-                    <section className="label-input" id="zip-container">
-                        <label htmlFor="zip">ZIP Code</label>
-                        <p className="invalid-text">Empty field</p>
-                        <input type="number" placeholder="10001" name="zip" id="zip" onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
-                    </section>
+                    {/* Input ZIP */}
+                    <FormInput 
+                        name="zip" 
+                        id="zip" 
+                        type="number" 
+                        placeholder="10001" 
+                        label="ZIP Code" 
+                        onChange={updateFormData} 
+                        errorText={allErrors.zip}
+                    />
 
-                    <section className="label-input" id="city-container">
-                        <label htmlFor="city">City</label>
-                        <p className="invalid-text">Empty field</p>
-                        <input type="text" placeholder="New York" name="city" id="city" onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
-                    </section>
+                    {/* Input City */}
+                    <FormInput 
+                        name="city" 
+                        id="city" 
+                        type="text" 
+                        placeholder="New York" 
+                        label="City" 
+                        onChange={updateFormData} 
+                        errorText={allErrors.city}
+                    />
 
-                    <section className="label-input" id="country-container">
-                        <label htmlFor="country">Country</label>
-                        <p className="invalid-text">Empty field</p>
-                        <input type="text" placeholder="United States" name="country" id="country" onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
-                    </section>
+                    {/* Input Country */}
+                    <FormInput 
+                        name="country" 
+                        id="country" 
+                        type="text" 
+                        placeholder="United States" 
+                        label="Country" 
+                        onChange={updateFormData} 
+                        errorText={allErrors.country}
+                    />
                 </section>
 
                 <section className="payment-details">
@@ -196,19 +250,29 @@ export default function Checkout() {
                     </fieldset>
 
                     {formData.paymentMethod === "e-money" &&
-                        <section className="label-input" id="moneyNumber-container">
-                            <label htmlFor="moneyNumber">e-Money Number</label>
-                            <p className="invalid-text">{!formData.moneyNumber.length ? "Empty field" : "Wrong format"}</p>
-                            <input type="number" placeholder="238521993" name="moneyNumber" id="moneyNumber" onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
-                        </section>
-                    }
+                        <>
+                            {/* Input e-Money number */}
+                            <FormInput 
+                                name="moneyNumber" 
+                                id="moneyNumber" 
+                                type="number" 
+                                placeholder="238521993" 
+                                label="e-Money Number" 
+                                onChange={updateFormData} 
+                                errorText={allErrors.moneyNumber}
+                            />
 
-                    {formData.paymentMethod === "e-money" &&
-                        <section className="label-input" id="moneyPin-container">
-                            <label htmlFor="moneyPin">e-Money PIN</label>
-                            <p className="invalid-text">{!formData.moneyPin.length ? "Empty field" : "Wrong format"}</p>
-                            <input type="number" placeholder="6891" name="moneyPin" id="moneyPin" onChange={updateFormData} onClick={e => handleUpdateInput(e)}/>
-                        </section>
+                            {/* Input e-Money PIN */}
+                            <FormInput 
+                                name="moneyPin" 
+                                id="moneyPin" 
+                                type="number" 
+                                placeholder="6891" 
+                                label="e-Money PIN" 
+                                onChange={updateFormData} 
+                                errorText={allErrors.moneyPin}
+                            />
+                        </>
                     }
 
                     {formData.paymentMethod === "cash-on-delivery" &&
